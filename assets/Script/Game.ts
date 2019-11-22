@@ -70,6 +70,7 @@ export default class Game extends cc.Component {
     // 
     // private penNode: cc.Node = null;
     private gtxArr: cc.Graphics[] = null;
+    private colorCircleArr: cc.Node[] = null;
     async start () {
         this.gridArr = [];
         this.ballArr = [];
@@ -98,14 +99,16 @@ export default class Game extends cc.Component {
             Global.level = 1;
         }
         // cc.JsonAsset
-        
+        for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
+            this.colorCircleArr.push();
+        }
         // 初始化背景网格
         this.initGrid();
 
         // this.drawPath();
         this.addGrphicsToNode();
         // 初始化球
-        this.initCircle();
+        // this.initCircle();
         // this.drawPath()
         
     }
@@ -259,201 +262,13 @@ export default class Game extends cc.Component {
         }
     }
     touchMove(e: cc.Event.EventTouch): void {
-        let res = this.getRowColByTouch(e);
-        let targetNode = res.node;
-        // 最后一次的move坐标值和当前move坐标值的差值
-        if(this.currentId !== -1 && this.movePath[this.currentId]) {
-            let moveLen: number = this.movePath[this.currentId].length;
-            // 取出最后一个坐标值
-            let lastVec = this.movePath[this.currentId][moveLen - 1];
-            // 最后点击的坐标值与路径中上一个坐标值x,y相差为1不允许这种操作
-            if(Math.abs(lastVec.x - res.p.x) === 1 && Math.abs(lastVec.y - res.p.y) === 1) {
-                this.canMove = false;
-            } else {
-                let offsetX = res.p.x - lastVec.x;
-                let offsetY = res.p.y - lastVec.y;
-                // 网格的行列
-                let row = res.p.x;
-                let col = res.p.y;
-                // let gridId: number = targetNode.getComponent("Grid").id;
-                this.showGuideByOffsetXY(offsetX,offsetY,row,col);
-            }
-        }
-        // if(e.getLocation().x )
-        if(this.canMove && res.p.x !== -1 && res.p.y !== -1) {
-            console.log("map row col is ",this.map[res.p.x][res.p.y]);
-            // 获得圆点的id号
-            // let id = this.ballMap[res.p.x][res.p.y].getComponent("Ball").id;
-            if(this.map[res.p.x][res.p.y] && this.ballMap[res.p.x][res.p.y]) {
-                // if(this.currentId === -1) {
-                //     this.currentId = this.ballMap[res.p.x][res.p.y].getComponent("Ball").id;
-                // }
-                // 经过的是小圆点 如果小圆点的颜色和起始点的颜色不一样就不会改变grid的颜色否则会改变也即是id相同 id来源（点击小圆点获得，点击路径获得）
-                if(this.ballMap[this.startVec.x][this.startVec.y] && this.ballMap[res.p.x][res.p.y].getComponent("Ball").id === this.ballMap[this.startVec.x][this.startVec.y].getComponent("Ball").id) {
-                    targetNode.getComponent("Grid").changeColor = true;
-                    targetNode.getComponent("Grid").pathId = this.currentId;
-                    this.isPair = true;
-                    targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
-                    // 播放音效
-                    if(res.p.x !== this.startVec.x || res.p.y !== this.startVec.y)
-                        cc.audioEngine.play(this.lineAudio,false,1);
-                } else {
-                    // 点击开始点不是圆点获得移动
-                    console.log(this.curMoveId);
-                    if(this.isContinue && this.curMoveId === this.ballMap[res.p.x][res.p.y].getComponent("Ball").id) {
-                        targetNode.getComponent("Grid").changeColor = true;
-                        targetNode.getComponent("Grid").pathId = this.curMoveId;
-                        this.isPair = true;
-                        targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
-                        // 播放音效
-                        cc.audioEngine.play(this.lineAudio,false,1);
-                    } else {
-                        console.log("asdfa");
-                    }
-                }
-
-                if((res.p.x !== this.startVec.x || res.p.y !== this.startVec.y) && this.map[res.p.x][res.p.y]) {
-                    // 移动的对象不是起点的话可以不让它继续向前移动
-                    this.canMove = false;
-                }
-                // 加入到移动队列中去
-                if(this.canMove && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-                    this.movePath[this.currentId].push(res.p);
-                }
-            } else {
-                // 如果经过的网格有颜色了
-                if(!targetNode.getComponent("Grid").changeColor && !this.isContinue) {
-                    // 经过的网格没有被染色
-                    targetNode.getComponent("Grid").changeColor = true;
-                    targetNode.getComponent("Grid").pathId = this.currentId;
-                    // 经过的是网格 设置网格的颜色为当前移动的颜色
-                    targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
-                    // 加入到移动路径中
-                    if(this.canMove && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-                        this.movePath[this.currentId].push(res.p);
-                    }
-                } else if(!targetNode.getComponent("Grid").changeColor && this.isContinue) {
-                    // 在这种情况的时候回就绪划线操作
-                    // let pathid = targetNode.getComponent("Grid").pathId;
-                    if(this.curMoveId !== -1) {
-                        targetNode.getComponent("Grid").changeColor = true;
-                        targetNode.getComponent("Grid").setColor(this.curMoveColor);
-                        targetNode.getComponent("Grid").pathId = this.curMoveId;
-                    }
-                    // 加入到移动队列
-                    if(this.canMove && !Util.isContainVec2(res.p,this.movePath[this.curMoveId])) {
-                        this.movePath[this.curMoveId].push(res.p);
-                    }
-                }
-            }
-        }
+        
     }
     touchBegin(e: cc.Event.EventTouch): boolean {
-        let res = this.getRowColByTouch(e);
-        let targetNode = res.node;
-        // 获得点击小圆点的id
-        let circleNode: cc.Node = this.ballMap[res.p.x][res.p.y];
-        this.canMove = true;
-        // 获得小圆点上的id
-        if(circleNode && circleNode.getComponent("Ball")) {
-            this.currentId = circleNode.getComponent("Ball").id;
-        }
-        console.log("currrentid is ",this.currentId," and lastid is ",this.lastId);
-        // 当最后点击的id和当前点击的圆点的id相同的时候清空路径 && 点击的不是空白网格
-        if(this.currentId === this.lastId && this.map[res.p.x][res.p.y]) {
-            let tempArrLen = this.movePath[this.currentId].length;
-            // 清除之前的路径
-            for(let i = 0; i < tempArrLen; i++) {
-                let moveItem = this.movePath[this.currentId][i];
-                let tempNode = this.gridMap[moveItem.x][moveItem.y];
-                tempNode.getComponent("Grid").changeColor = false;
-                let gridNode = tempNode.getChildByName("grid");
-                gridNode.color = new cc.Color(200,200,200,255);
-            }
-            this.movePath[this.currentId] = [];
-            // 清除对应的画笔
-            this.gtxArr[this.currentId].clear();
-            this.isReStart = true;
-            console.log("重新划线");
-        } else if(!this.map[res.p.x][res.p.y] && this.gridMap[res.p.x][res.p.y].getComponent("Grid").changeColor){
-            // 点击了空白网格区域并且颜色已经改变了 可以接上之前的颜色进行移动
-            this.canMove = true;
-            console.log("继续画线");
-            this.isContinue = true;
-            if(this.gridMap[res.p.x][res.p.y].getComponent("Grid").pathId !== -1) {
-                this.currentId = this.gridMap[res.p.x][res.p.y].getComponent("Grid").pathId;
-            }
-            let pathid = targetNode.getComponent("Grid").pathId;
-            this.curMoveId = pathid;
-            this.curMoveColor = targetNode.getComponent("Grid").getColor();
 
-        }
-        else if(!circleNode) {
-            this.canMove = false;
-        }
-        this.startVec = res.p;
-        if(!Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
-            this.movePath[this.currentId].push(this.startVec);
-        }
-        
-        // 打开可以移动的开关
-        
-        if(res.p.x !== -1 && res.p.y !== -1 && targetNode != null && this.canMove) {
-            let gridTarget;
-            // 变换底色
-            for(let i = 0; i < this.ballArr.length; i++) {
-                if(res.p.x === this.ballArr[i].getComponent("Ball").row &&
-                   res.p.y === this.ballArr[i].getComponent("Ball").col &&
-                   this.map[res.p.x][res.p.y]) {
-                       let circleItem = this.ballArr[i];
-                       
-                       // 查找网格背景
-                       gridTarget = this.gridMap[res.p.x][res.p.y];
-                      
-                       // 设置颜色是否改变了
-                       gridTarget.getComponent("Grid").changeColor = true;
-                       gridTarget.getComponent("Grid").pathId = this.currentId;
-                       let realTarget = gridTarget.getChildByName("grid");
-                       realTarget.color = new cc.Color(circleItem.color.getR() / 4,circleItem.color.getG() / 4,circleItem.color.getB() / 4,circleItem.color.getA() / 100)
-                       this.moveStartColor = realTarget.color;
-                    //    targetNode.color = new cc.Color(circleItem.color.getR(),circleItem.color.getG(),circleItem.color.getB(),circleItem.color.getA() / 2);
-                }
-            }
-            // 点击的不是圆点对象是
-            if(this.isContinue) {
-                // 查找网格背景
-                gridTarget = this.gridMap[res.p.x][res.p.y];
-                      
-                // 设置颜色是否改变了
-                gridTarget.getComponent("Grid").changeColor = true;
-                gridTarget.getComponent("Grid").pathId = this.currentId;
-                let realTarget = gridTarget.getChildByName("grid");
-                this.moveStartColor = realTarget.color;
-            }
-        }
-        console.log("startVes is ",this.startVec);
-        // 最后一次触摸的点的ID
-        this.lastId = this.currentId;
         return true;
     }
     touchEnd(e: cc.Event.EventTouch): void {
-        console.log("touchend");
-        let res = this.getRowColByTouch(e);
-        this.endVec = res.p;
-        let targetNode = res.node;
-        // 获得点击小圆点的id
-        let circleNode: cc.Node = this.ballMap[res.p.x][res.p.y];
-        // 获得小圆点上的id
-        let targetId: number = -1;
-        if(circleNode && circleNode.getComponent("Ball")) {
-            targetId = circleNode.getComponent("Ball").id;
-        }
-        if(targetId !== -1 && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-            this.movePath[targetId].push(res.p);
-        }
-        this.isContinue = false;
-        this.isReStart = false;
-        // 判断游戏是否过关
 
 
     }
