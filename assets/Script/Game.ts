@@ -71,7 +71,7 @@ export default class Game extends cc.Component {
     // private penNode: cc.Node = null;
     private gtxArr: cc.Graphics[] = null;
     private colorCircleArr: cc.Node[] = null;
-    async start () {
+    public async start () {
         this.gridArr = [];
         this.ballArr = [];
         this.map = [];
@@ -84,8 +84,9 @@ export default class Game extends cc.Component {
         this.gridCon.on("touchstart",this.touchBegin,this);
         this.gridCon.on("touchmove",this.touchMove,this);
         this.gridCon.on("touchend",this.touchEnd,this);
+        console.log("start start start");
         this.levelData = await new Promise((resolve,reject) => {
-            cc.loader.loadRes("config/levelConfig.json",cc.JsonAsset,(err: Error,res: any) => {
+            cc.loader.loadRes("config/oneLevel.json",cc.JsonAsset,(err: Error,res: any) => {
                 if(err) {
                     return;
                 }
@@ -99,17 +100,17 @@ export default class Game extends cc.Component {
             Global.level = 1;
         }
         // cc.JsonAsset
-        for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
-            this.colorCircleArr.push();
-        }
-        // 初始化背景网格
+        // for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
+        //     this.colorCircleArr.push();
+        // }
+        // 初始化背景网格 不要使用系统颜色，在预制体中不要加入Sprite并且改变其颜色
         this.initGrid();
 
         // this.drawPath();
         this.addGrphicsToNode();
         // 初始化球
-        // this.initCircle();
-        // this.drawPath()
+        this.initCircle();
+        // this.drawPath();
         
     }
     // 绘制路径
@@ -149,7 +150,7 @@ export default class Game extends cc.Component {
         let col = 6;
         for(let i = 0; i < row; i++) {
             this.aArr[i] = [];
-            this.map[i] = []
+            this.map[i] = [];
             this.gridMap[i] = [];
             this.ballMap[i] = []
             for(let j = 0; j < col; j++) {
@@ -173,7 +174,7 @@ export default class Game extends cc.Component {
         }
     }
     // 初始化棋子
-    private initCircle(): void {
+    private async initCircle() {
         let level = Global.level === 0 ? 1 : Global.level;
         console.log("level is ",level);
         let dataArr = this.levelData.json[level];
@@ -194,16 +195,27 @@ export default class Game extends cc.Component {
                 let rightObj: {"row": number,"col": number} = dataItem.right;
                 let id: number = dataItem.id;
                 let path: number[][] = dataItem.path;
-                let instance = cc.instantiate(this.circleMode);
+                let instance: cc.Node = await this.getPrefabInstanceAsync(i);
                 this.addBallToGridCon(instance,row,col,id,path,colorArr,rightObj.row,rightObj.col);
                 // 设置另外一个
-                let rightNode = cc.instantiate(this.circleMode);
+                let rightNode = await this.getPrefabInstanceAsync(i);
 
                 this.addBallToGridCon(rightNode,rightObj.row,rightObj.col,id,path.reverse(),colorArr,row,col);
             }
         } else {
             console.log("这一关的数据还没有敬请期待");
         }
+    }
+    private getPrefabInstanceAsync(index: number): Promise<cc.Node> {
+        return new Promise((resolve,reject) => {
+            cc.loader.loadRes("balls/" + index,(err,prefab: cc.Prefab) => {
+                if(err) {
+                    reject("error");
+                }
+                let prefabNode: cc.Node = cc.instantiate(prefab);
+                resolve(cc.instantiate(prefabNode));
+            })
+        });
     }
     private addBallToGridCon(instance: cc.Node,row: number,col: number,i: number,path: any,colorArr: number[],bRow: number,bCol: number): void {
         instance.getComponent("Ball").row = row;
