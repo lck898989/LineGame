@@ -1,2 +1,2 @@
-# LineGame
-颜色连线小游戏
+# hello-world
+Hello world new project template.
