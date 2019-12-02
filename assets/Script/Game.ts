@@ -319,9 +319,13 @@ export default class Game extends cc.Component {
                 }
                 // 加入到移动队列中去
                 if(!Util.isContainVec2(res.p,this.movePath[this.currentId])) {
+                    if(this.currentId === 1) {
+                        this.movePath[this.currentId].push(res.p);
+                    } 
                     this.movePath[this.currentId].push(res.p);
                 }
             } else {
+                console.log("move的地方有颜色了，id是：",this.currentId);
                 // 如果经过的网格有颜色了
                 if(!targetNode.getComponent("Grid").changeColor && !this.isContinue) {
                     // 经过的网格没有被染色
@@ -369,7 +373,7 @@ export default class Game extends cc.Component {
                 let tempNode = this.gridMap[moveItem.x][moveItem.y];
                 tempNode.getComponent("Grid").changeColor = false;
                 let gridNode = tempNode.getChildByName("grid");
-                gridNode.color = new cc.Color(200,200,200);
+                gridNode.color = new cc.Color(255,255,255,255);
             }
             this.movePath[this.currentId] = [];
             // 清除对应的画笔
@@ -415,7 +419,7 @@ export default class Game extends cc.Component {
                        gridTarget.getComponent("Grid").changeColor = true;
                        gridTarget.getComponent("Grid").pathId = this.currentId;
                        let realTarget: cc.Node = gridTarget.getChildByName("grid");
-                       realTarget.color = new cc.Color(circleItem.color.getR() / 4,circleItem.color.getG() / 4,circleItem.color.getB() / 4,circleItem.color.getA() / 100)
+                       realTarget.color = new cc.Color(circleItem.color.getR() / 4,circleItem.color.getG() / 4,circleItem.color.getB() / 4,20);
                        this.moveStartColor = realTarget.color;
                     //    targetNode.color = new cc.Color(circleItem.color.getR(),circleItem.color.getG(),circleItem.color.getB(),circleItem.color.getA() / 2);
                 }
@@ -487,31 +491,52 @@ export default class Game extends cc.Component {
     update (dt) {
         if(this.levelData && this.levelData.json[Global.level]) {
             let levelNumber = this.levelData.json[Global.level].length;
-            console.log("movePath is ",this.movePath);
+            let curId: number = this.currentId;
+            let self = this;
             // 遍历所有的路径
             for(let i = 0; i < levelNumber; i++) {
-                console.log("movePath is ",this.movePath[i]);
-                if(this.movePath[i].length >= 2) {
+                if(self.movePath[i].length >= 2) {
                     let curColor;
-                    let dataLen = this.levelData.json[Global.level].length;
-                    let dataItem = this.levelData.json[Global.level][this.currentId];
+                    let dataLen = self.levelData.json[Global.level].length;
+                    let dataItem = self.levelData.json[Global.level][curId];
                     // 绘制点前点击对应的画线id
                     curColor = new cc.Color(dataItem.color[0],dataItem.color[1],dataItem.color[2],dataItem.color[3]);
-                    this.gtxArr[i].strokeColor = curColor;
-                    let movePathLen = this.movePath[this.currentId].length;
-                    for(let m = 0; m < movePathLen; m++) {
-                        let p = this.aArr[this.movePath[this.currentId][m].x][this.movePath[this.currentId][m].y];
-                        if(m === 0) {
-                            this.gtxArr[i].moveTo(p.x,p.y);
-                        } else {
-                            this.gtxArr[i].lineTo(p.x,p.y);
+                    if(this.checkPathValid(self.movePath[curId])) {
+                        self.gtxArr[i].strokeColor = curColor;
+                        let movePathLen = self.movePath[curId].length;
+                        for(let m = 0; m < movePathLen; m++) {
+                            let p = self.aArr[self.movePath[curId][m].x][self.movePath[curId][m].y];
+                            if(m === 0) {
+                                self.gtxArr[i].moveTo(p.x,p.y);
+                            } else {
+                                self.gtxArr[i].lineTo(p.x,p.y);
+                            }
                         }
+                        self.gtxArr[i].stroke();
+                    } else {
+                        alert("路径不合法");
                     }
-                    this.gtxArr[i].stroke();
                 }
             }
             
         }
-        
+    }
+    // 检测路径的合法性
+    checkPathValid(pathArr: cc.Vec2[]): boolean {
+        let res = false;
+        let num: number = 0;
+        for(let i = 0; i < pathArr.length; i++) {
+            if(i <= pathArr.length - 2) {
+                let pathItemPre: cc.Vec2 = pathArr[i];
+                let pathItemNext: cc.Vec2 = pathArr[i + 1];
+                if(Math.abs(pathItemNext.x - pathItemPre.x) === 1 || Math.abs(pathItemNext.y - pathItemPre.y) === 1) {
+                    num++;
+                }
+            }
+        }
+        if(num === pathArr.length - 1) {
+            res = true;
+        }
+        return res;
     }
 }
