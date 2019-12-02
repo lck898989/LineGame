@@ -100,7 +100,13 @@ export default class Index extends cc.Component {
             }
             console.log("choosedLevel is ",this.choosedLevel);
             Global.level = this.choosedLevel;
-            cc.director.loadScene("Game");
+            let start = new Date().getMilliseconds();
+            Global.prefabBuffer = [];
+            Global.preLoadPrefabs(() => {
+                let end = new Date().getMilliseconds();
+                console.log("加载预制体消耗",end - start,"ms");
+                cc.director.loadScene("Game");
+            });
         }
     }
     // update (dt) {}
