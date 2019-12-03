@@ -22,6 +22,10 @@ export default class Grid extends cc.Component {
     private changeColor: boolean = false;
     // 记录pahtid 即圆点的id
     private pathId: number = -1;
+
+    // 该网格中包含的圆点ID
+    private ballId: number = -1;
+
     onLoad () {
         
     }
@@ -34,7 +38,7 @@ export default class Grid extends cc.Component {
         return this.node.getChildByName("grid").color;
     }
     start () {
-
+        
     }
     
     // 销毁的时候进行事件监听的销毁

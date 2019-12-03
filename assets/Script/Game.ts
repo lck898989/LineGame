@@ -211,6 +211,9 @@ export default class Game extends cc.Component {
         instance.getComponent("Ball").brotherRow = bRow;
         instance.getComponent("Ball").brotherCol = bCol;
 
+        // 设置Grid的id
+        this.gridMap[row][col].getComponent("Grid").ballId = i;
+        
         instance.color = new cc.Color(colorArr[0],colorArr[1],colorArr[2],colorArr[3]);
         // 设置坐标
         instance.setPosition(this.aArr[row][col]);
@@ -269,6 +272,13 @@ export default class Game extends cc.Component {
             let lastVec = this.movePath[this.currentId][moveLen - 1];
             // 最后点击的坐标值与路径中上一个坐标值x,y相差为1不允许这种操作
             if(Math.abs(lastVec.x - res.p.x) === 1 && Math.abs(lastVec.y - res.p.y) === 1) {
+                // 斜着走不允许
+                this.canMove = false;
+            } else if(Math.abs(lastVec.x - res.p.x) > 1 && Math.abs(lastVec.y - res.p.y) === 1) {
+                // 跨列走不允许
+                this.canMove = false;
+            } else if(Math.abs(lastVec.y - res.p.y) > 1 && Math.abs(lastVec.x - res.p.x) === 1) {
+                // 跨行走不允许
                 this.canMove = false;
             } else {
                 let offsetX = res.p.x - lastVec.x;
@@ -286,9 +296,6 @@ export default class Game extends cc.Component {
             // 获得圆点的id号
             // let id = this.ballMap[res.p.x][res.p.y].getComponent("Ball").id;
             if(this.map[res.p.x][res.p.y] && this.ballMap[res.p.x][res.p.y]) {
-                // if(this.currentId === -1) {
-                //     this.currentId = this.ballMap[res.p.x][res.p.y].getComponent("Ball").id;
-                // }
                 // 经过的是小圆点 如果小圆点的颜色和起始点的颜色不一样就不会改变grid的颜色否则会改变也即是id相同 id来源（点击小圆点获得，点击路径获得）
                 if(this.ballMap[this.startVec.x][this.startVec.y] && this.ballMap[res.p.x][res.p.y].getComponent("Ball").id === this.ballMap[this.startVec.x][this.startVec.y].getComponent("Ball").id) {
                     targetNode.getComponent("Grid").changeColor = true;
@@ -317,11 +324,8 @@ export default class Game extends cc.Component {
                     // 移动的对象不是起点的话可以不让它继续向前移动
                     this.canMove = false;
                 }
-                // 加入到移动队列中去
-                if(!Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-                    if(this.currentId === 1) {
-                        this.movePath[this.currentId].push(res.p);
-                    } 
+                // 加入到移动队列中去(网格中圆点的id和当前点击的id是同一个)
+                if(!Util.isContainVec2(res.p,this.movePath[this.currentId]) && (targetNode.getComponent("Grid").ballId === this.currentId)) {
                     this.movePath[this.currentId].push(res.p);
                 }
             } else {
@@ -501,7 +505,7 @@ export default class Game extends cc.Component {
                     let dataItem = self.levelData.json[Global.level][curId];
                     // 绘制点前点击对应的画线id
                     curColor = new cc.Color(dataItem.color[0],dataItem.color[1],dataItem.color[2],dataItem.color[3]);
-                    if(this.checkPathValid(self.movePath[curId])) {
+                    if(this.checkPathValid(self.movePath[curId],curId)) {
                         self.gtxArr[i].strokeColor = curColor;
                         let movePathLen = self.movePath[curId].length;
                         for(let m = 0; m < movePathLen; m++) {
@@ -514,7 +518,7 @@ export default class Game extends cc.Component {
                         }
                         self.gtxArr[i].stroke();
                     } else {
-                        alert("路径不合法");
+                        // alert("路径不合法");
                     }
                 }
             }
@@ -522,7 +526,7 @@ export default class Game extends cc.Component {
         }
     }
     // 检测路径的合法性
-    checkPathValid(pathArr: cc.Vec2[]): boolean {
+    checkPathValid(pathArr: cc.Vec2[],id: number): boolean {
         let res = false;
         let num: number = 0;
         for(let i = 0; i < pathArr.length; i++) {
@@ -533,6 +537,10 @@ export default class Game extends cc.Component {
                     num++;
                 }
             }
+        }
+        if(id === 1) {
+            console.log("num is ",num);
+            console.log("pathArr is ",pathArr);
         }
         if(num === pathArr.length - 1) {
             res = true;
