@@ -169,6 +169,7 @@ export default class Game extends cc.Component {
             // 一个颜色对应一个路径数组
             this.movePath[m] = [];
         }
+        // dragonBones
         if(dataArr) {
             for(let i = 0; i < dataArr.length; i++) {
                 let dataItem = dataArr[i];
