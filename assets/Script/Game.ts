@@ -266,6 +266,7 @@ export default class Game extends cc.Component {
     touchMove(e: cc.Event.EventTouch): void {
         let res = this.getRowColByTouch(e);
         let targetNode = res.node;
+        let gridComponent = targetNode.getComponent("Grid");
         // 最后一次的move坐标值和当前move坐标值的差值
         if(this.currentId !== -1 && this.movePath[this.currentId]) {
             let moveLen: number = this.movePath[this.currentId].length;
@@ -299,8 +300,8 @@ export default class Game extends cc.Component {
             if(this.map[res.p.x][res.p.y] && this.ballMap[res.p.x][res.p.y]) {
                 // 经过的是小圆点 如果小圆点的颜色和起始点的颜色不一样就不会改变grid的颜色否则会改变也即是id相同 id来源（点击小圆点获得，点击路径获得）
                 if(this.ballMap[this.startVec.x][this.startVec.y] && this.ballMap[res.p.x][res.p.y].getComponent("Ball").id === this.ballMap[this.startVec.x][this.startVec.y].getComponent("Ball").id) {
-                    targetNode.getComponent("Grid").changeColor = true;
-                    targetNode.getComponent("Grid").pathId = this.currentId;
+                    gridComponent.changeColor = true;
+                    gridComponent.pathId = this.currentId;
                     this.isPair = true;
                     targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
                     // 播放音效
@@ -310,8 +311,8 @@ export default class Game extends cc.Component {
                     // 点击开始点不是圆点获得移动
                     console.log(this.curMoveId);
                     if(this.isContinue && this.curMoveId === this.ballMap[res.p.x][res.p.y].getComponent("Ball").id) {
-                        targetNode.getComponent("Grid").changeColor = true;
-                        targetNode.getComponent("Grid").pathId = this.curMoveId;
+                        gridComponent.changeColor = true;
+                        gridComponent.pathId = this.curMoveId;
                         this.isPair = true;
                         targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
                         // 播放音效
@@ -326,29 +327,29 @@ export default class Game extends cc.Component {
                     this.canMove = false;
                 }
                 // 加入到移动队列中去(网格中圆点的id和当前点击的id是同一个)
-                if(!Util.isContainVec2(res.p,this.movePath[this.currentId]) && (targetNode.getComponent("Grid").ballId === this.currentId)) {
+                if(!Util.isContainVec2(res.p,this.movePath[this.currentId]) && (gridComponent.ballId === this.currentId)) {
                     this.movePath[this.currentId].push(res.p);
                 }
             } else {
                 console.log("move的地方有颜色了，id是：",this.currentId);
                 // 如果经过的网格有颜色了
-                if(!targetNode.getComponent("Grid").changeColor && !this.isContinue) {
+                if(!gridComponent.changeColor && !this.isContinue) {
                     // 经过的网格没有被染色
-                    targetNode.getComponent("Grid").changeColor = true;
-                    targetNode.getComponent("Grid").pathId = this.currentId;
+                    gridComponent.changeColor = true;
+                    gridComponent.pathId = this.currentId;
                     // 经过的是网格 设置网格的颜色为当前移动的颜色
                     targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
                     // 加入到移动路径中
                     if(this.canMove && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
                         this.movePath[this.currentId].push(res.p);
                     }
-                } else if(!targetNode.getComponent("Grid").changeColor && this.isContinue) {
+                } else if(!gridComponent.changeColor && this.isContinue) {
                     // 在这种情况的时候回就绪划线操作
-                    // let pathid = targetNode.getComponent("Grid").pathId;
+                    // let pathid = gridComponent.pathId;
                     if(this.curMoveId !== -1) {
-                        targetNode.getComponent("Grid").changeColor = true;
-                        targetNode.getComponent("Grid").setColor(this.curMoveColor);
-                        targetNode.getComponent("Grid").pathId = this.curMoveId;
+                        gridComponent.changeColor = true;
+                        gridComponent.setColor(this.curMoveColor);
+                        gridComponent.pathId = this.curMoveId;
                     }
                     // 加入到移动队列
                     if(this.canMove && !Util.isContainVec2(res.p,this.movePath[this.curMoveId])) {
@@ -370,19 +371,21 @@ export default class Game extends cc.Component {
         }
         console.log("currrentid is ",this.currentId," and lastid is ",this.lastId);
         // 当最后点击的id和当前点击的圆点的id相同的时候清空路径 && 点击的不是空白网格
-        if(this.currentId === this.lastId && this.map[res.p.x][res.p.y]) {
-            let tempArrLen = this.movePath[this.currentId].length;
+        if(this.map[res.p.x][res.p.y]) {
+            let ballId = circleNode.getComponent("Ball").id;
+            let tempArrLen = this.movePath[ballId].length;
             // 清除之前的路径
             for(let i = 0; i < tempArrLen; i++) {
-                let moveItem = this.movePath[this.currentId][i];
+                let moveItem = this.movePath[ballId][i];
                 let tempNode = this.gridMap[moveItem.x][moveItem.y];
                 tempNode.getComponent("Grid").changeColor = false;
                 let gridNode = tempNode.getChildByName("grid");
                 gridNode.color = new cc.Color(255,255,255,255);
             }
-            this.movePath[this.currentId] = [];
+            this.movePath[ballId] = [];
             // 清除对应的画笔
-            this.gtxArr[this.currentId].clear();
+            // let currentGraphic = this.gtxArr[ballId];
+            // currentGraphic.clear();
             this.isReStart = true;
             console.log("重新划线");
         } else if(!this.map[res.p.x][res.p.y] && this.gridMap[res.p.x][res.p.y].getComponent("Grid").changeColor){
@@ -425,6 +428,7 @@ export default class Game extends cc.Component {
                        gridTarget.getComponent("Grid").pathId = this.currentId;
                        let realTarget: cc.Node = gridTarget.getChildByName("grid");
                        realTarget.color = new cc.Color(circleItem.color.getR() / 4,circleItem.color.getG() / 4,circleItem.color.getB() / 4,20);
+                    //    realTarget.opacity = 100;
                        this.moveStartColor = realTarget.color;
                     //    targetNode.color = new cc.Color(circleItem.color.getR(),circleItem.color.getG(),circleItem.color.getB(),circleItem.color.getA() / 2);
                 }
@@ -458,12 +462,14 @@ export default class Game extends cc.Component {
         if(circleNode && circleNode.getComponent("Ball")) {
             targetId = circleNode.getComponent("Ball").id;
         }
-        if(targetId !== -1 && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-            this.movePath[targetId].push(res.p);
-        }
+        console.log("before end path is ",this.movePath);
+        // if(targetId !== -1 && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
+        //     this.movePath[targetId].push(res.p);
+        // }
         this.isContinue = false;
         this.isReStart = false;
         // 判断游戏是否过关
+        console.log("path is ",this.movePath);
 
     }
     
@@ -501,26 +507,28 @@ export default class Game extends cc.Component {
             // 遍历所有的路径
             for(let i = 0; i < levelNumber; i++) {
                 if(self.movePath[i].length >= 2) {
+                    // 绘制直线
                     let curColor;
                     let dataLen = self.levelData.json[Global.level].length;
                     let dataItem = self.levelData.json[Global.level][curId];
                     // 绘制点前点击对应的画线id
                     curColor = new cc.Color(dataItem.color[0],dataItem.color[1],dataItem.color[2],dataItem.color[3]);
-                    if(this.checkPathValid(self.movePath[curId],curId)) {
-                        self.gtxArr[i].strokeColor = curColor;
-                        let movePathLen = self.movePath[curId].length;
-                        for(let m = 0; m < movePathLen; m++) {
-                            let p = self.aArr[self.movePath[curId][m].x][self.movePath[curId][m].y];
-                            if(m === 0) {
-                                self.gtxArr[i].moveTo(p.x,p.y);
-                            } else {
-                                self.gtxArr[i].lineTo(p.x,p.y);
-                            }
+                    // if(this.checkPathValid(self.movePath[curId],curId)) {
+                    self.gtxArr[i].strokeColor = curColor;
+                    let movePathLen = self.movePath[curId].length;
+                    
+                    for(let m = 0; m < movePathLen; m++) {
+                        let p = self.aArr[self.movePath[curId][m].x][self.movePath[curId][m].y];
+                        if(m === 0) {
+                            self.gtxArr[i].moveTo(p.x,p.y);
+                        } else {
+                            self.gtxArr[i].lineTo(p.x,p.y);
                         }
-                        self.gtxArr[i].stroke();
-                    } else {
-                        // alert("路径不合法");
                     }
+                    self.gtxArr[i].stroke();
+                } else {
+                    // 清除对应的路径数据
+                    self.gtxArr[i].clear();
                 }
             }
             
@@ -538,10 +546,6 @@ export default class Game extends cc.Component {
                     num++;
                 }
             }
-        }
-        if(id === 1) {
-            console.log("num is ",num);
-            console.log("pathArr is ",pathArr);
         }
         if(num === pathArr.length - 1) {
             res = true;
