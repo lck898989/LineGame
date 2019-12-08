@@ -338,8 +338,9 @@ export default class Game extends cc.Component {
                 if(!Util.isContainVec2(res.p,currentPath) && (gridComponent.ballId === this.currentId)) {
                     currentPath.push(res.p);
                 }
+                this.checkBackAndDeal(currentPath,res);
             } else {
-                // 如果经过的网格有颜色了
+                // 如果经过的网格没有颜色
                 if(!gridComponent.changeColor && !this.isContinue) {
                     console.log("move的地方没有颜色了不是继续");
                     // 经过的网格没有被染色
@@ -367,32 +368,31 @@ export default class Game extends cc.Component {
 
                 } else {
                     console.log("----> 网格是否有颜色",gridComponent.changeColor,"-->是否是继续",this.isContinue);
-                    // 判断该点是否是路径数组的倒数第二个路径 是的话就删除最后一个路径点
-                    let pathLen: number = currentPath.length;
-                    let moveIndex: number = -1;
-                    for(let i = 0; i < pathLen; i++) {
-                        if(res.p.x === currentPath[i].x && res.p.y === currentPath[i].y) {
-                            moveIndex = i;
-                        }
-                    }
-                    // console.log("res is ",res);
-                    // console.log("currentPath is ",currentPath);
-                    // console.log("moveIndex is ",moveIndex," and pathLen is ",pathLen);
-                    if(moveIndex !== -1 && (moveIndex === pathLen - 2)) {
-                        console.log("开始改变路径");
-                        let lastInfo: cc.Vec2 = currentPath[pathLen - 1];
-                        let lastGridCom = this.gridMap[lastInfo.x][lastInfo.y].getComponent("Grid");
-                        lastGridCom.changeColor = false;
-                        lastGridCom.pathId = -1;
-                        // gridItem.getChildByName("grid").color = new cc.Color(255,255,255,255);
-                        this.gridMap[lastInfo.x][lastInfo.y].getChildByName("grid").color = new cc.Color(255,255,255,255);
-                        // 清除它的路径信息
-                        currentPath.splice(pathLen - 1,1);
-                        // 改变背景颜色
-
-                    }
+                    this.checkBackAndDeal(currentPath,res);
                 }
             }
+        }
+    }
+    // 处理回退连线
+    private checkBackAndDeal(currentPath: cc.Vec2[],res: {"p": cc.Vec2,"node": cc.Node}): void {
+        // 判断该点是否是路径数组的倒数第二个路径 是的话就删除最后一个路径点
+        let pathLen: number = currentPath.length;
+        let moveIndex: number = -1;
+        for(let i = 0; i < pathLen; i++) {
+            if(res.p.x === currentPath[i].x && res.p.y === currentPath[i].y) {
+                moveIndex = i;
+            }
+        }
+        if(moveIndex !== -1 && (moveIndex === pathLen - 2)) {
+            console.log("开始改变路径");
+            let lastInfo: cc.Vec2 = currentPath[pathLen - 1];
+            let lastGridCom = this.gridMap[lastInfo.x][lastInfo.y].getComponent("Grid");
+            lastGridCom.changeColor = false;
+            lastGridCom.pathId = -1;
+            // gridItem.getChildByName("grid").color = new cc.Color(255,255,255,255);
+            this.gridMap[lastInfo.x][lastInfo.y].getChildByName("grid").color = new cc.Color(255,255,255,255);
+            // 清除它的路径信息
+            currentPath.splice(pathLen - 1,1);
         }
     }
     touchBegin(e: cc.Event.EventTouch): boolean {
@@ -420,8 +420,8 @@ export default class Game extends cc.Component {
             }
             this.movePath[ballId] = [];
             // 清除对应的画笔
-            let currentGraphic = this.gtxArr[ballId];
-            currentGraphic.clear();
+            // let currentGraphic = this.gtxArr[ballId];
+            // currentGraphic.clear();
             this.isReStart = true;
             console.log("重新划线");
         } else if(!this.map[res.p.x][res.p.y] && this.gridMap[res.p.x][res.p.y].getComponent("Grid").changeColor){
@@ -533,6 +533,10 @@ export default class Game extends cc.Component {
         return res;
     }
     update (dt) {
+        this.drawPath();
+    }
+    // 重新绘制路径信息
+    private drawPath(): void {
         if(this.levelData && this.levelData.json[Global.level]) {
             let levelNumber = this.levelData.json[Global.level].length;
             let curId: number = this.currentId;
@@ -560,6 +564,8 @@ export default class Game extends cc.Component {
                         }
                     }
                     self.gtxArr[i].stroke();
+                } else {
+                    self.gtxArr[i].clear();
                 }
             }
             
