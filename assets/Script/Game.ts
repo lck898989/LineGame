@@ -72,6 +72,8 @@ export default class Game extends cc.Component {
     // private penNode: cc.Node = null;
     private gtxArr: cc.Graphics[] = null;
     private colorCircleArr: cc.Node[] = null;
+    // 存储结果的对象
+    private res: any = {};
     public async start () {
         this.gridArr = [];
         this.ballArr = [];
@@ -504,6 +506,8 @@ export default class Game extends cc.Component {
         // 判断游戏是否过关
         console.log("path is ",this.movePath);
 
+        this.checkIsPass();
+
     }
     
     onDestroy() {
@@ -570,6 +574,68 @@ export default class Game extends cc.Component {
             }
             
         }
+    }
+    // 检测是否过关
+    private checkIsPass(): boolean {
+        let res: boolean = false;
+        let self = this;
+        // 配置文件中的关卡数据数组
+        let levelData = self.levelData.json[Global.level];
+        let moveKeys = Object.keys(self.movePath);
+        let rightNum: number = 0;
+        // let obj = {};
+        if(self.levelData && levelData && (levelData.length === moveKeys.length)) {
+            let levelNumber = levelData.length;
+            // 遍历所有的路径
+            for(let i = 0; i < levelNumber; i++) {
+                // 绘制直线
+                // let dataLen = levelData.length;
+                let dataItem = levelData[i];
+                let movePathItem: cc.Vec2[] = self.movePath[i];
+                let pathArr: number[][] = dataItem.path;
+
+                if(movePathItem.length === pathArr.length) {
+                    let singlePathRight: number = 0;
+                    let res = this.checkPathArrIsEqual(movePathItem,pathArr);
+                    if(res) {
+                        this.res[`${i}`] = true;
+                    }
+                }
+                
+            }
+        }
+        console.log("obj is ",this.res);
+        if(Object.keys(this.res).length === levelData.length) {
+            res = true;
+        }
+        return res;
+    }
+    private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
+        let pathItemArr: any[] = [];
+        let pathArrTemp: number[][] = [];
+        for(let i =0,len = pathArr.length;i < len; i++) {
+            pathArrTemp[i] = [];
+            pathArrTemp[i][0] = pathArr[i][0];
+            pathArrTemp[i][1] = pathArr[i][1];
+        }
+        for(let i = 0,len = pathItem.length; i < len; i++) {
+            pathItemArr[i] = [];
+            pathItemArr[i][0] = pathItem[i].x;
+            pathItemArr[i][1] = pathItem[i].y;
+        }
+        console.log(`pathItemArr is `,pathItemArr);
+        let rightNumber: number = 0;
+        for(let m = 0,len = pathItemArr.length; m < len; m++) {
+            if(pathItemArr[m][0] === pathArr[m][0] && pathItemArr[m][1] === pathArr[m][1]) {
+                rightNumber++;
+            } else if(pathItemArr[m][0] === pathArr.reverse()[m][0] && pathItemArr[m][1] === pathArr.reverse()[m][1]) {
+                rightNumber++;
+            }
+        }
+        if(rightNumber === pathArr.length) {
+            return true;
+        }
+        return false;
     }
     // 检测路径的合法性
     checkPathValid(pathArr: cc.Vec2[],id: number): boolean {
