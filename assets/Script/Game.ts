@@ -437,7 +437,6 @@ export default class Game extends cc.Component {
             if(this.isContinue) {
                 // 查找网格背景
                 gridTarget = this.gridMap[res.p.x][res.p.y];
-                      
                 // 设置颜色是否改变了
                 gridTarget.getComponent("Grid").changeColor = true;
                 gridTarget.getComponent("Grid").pathId = this.currentId;
@@ -463,9 +462,7 @@ export default class Game extends cc.Component {
             targetId = circleNode.getComponent("Ball").id;
         }
         console.log("before end path is ",this.movePath);
-        // if(targetId !== -1 && !Util.isContainVec2(res.p,this.movePath[this.currentId])) {
-        //     this.movePath[targetId].push(res.p);
-        // }
+        
         this.isContinue = false;
         this.isReStart = false;
         // 判断游戏是否过关
