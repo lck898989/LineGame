@@ -380,8 +380,8 @@ export default class Game extends cc.Component {
             }
             this.movePath[ballId] = [];
             // 清除对应的画笔
-            // let currentGraphic = this.gtxArr[ballId];
-            // currentGraphic.clear();
+            let currentGraphic = this.gtxArr[ballId];
+            currentGraphic.clear();
             this.isReStart = true;
             console.log("重新划线");
         } else if(!this.map[res.p.x][res.p.y] && this.gridMap[res.p.x][res.p.y].getComponent("Grid").changeColor){
@@ -520,8 +520,6 @@ export default class Game extends cc.Component {
                         }
                     }
                     self.gtxArr[i].stroke();
-                } else {
-                    self.gtxArr[i].clear();
                 }
             }
             
