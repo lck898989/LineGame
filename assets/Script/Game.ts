@@ -288,8 +288,6 @@ export default class Game extends cc.Component {
                 // 网格的行列
                 let row = res.p.x;
                 let col = res.p.y;
-                // let gridId: number = targetNode.getComponent("Grid").id;
-                // this.showGuideByOffsetXY(offsetX,offsetY,row,col);
             }
         }
         // if(e.getLocation().x )
@@ -317,8 +315,6 @@ export default class Game extends cc.Component {
                         targetNode.getChildByName("grid").color = new cc.Color(this.moveStartColor.getR(),this.moveStartColor.getG(),this.moveStartColor.getB(),this.moveStartColor.getA());
                         // 播放音效
                         cc.audioEngine.play(this.lineAudio,false,1);
-                    } else {
-                        console.log("asdfa");
                     }
                 }
 
@@ -507,15 +503,16 @@ export default class Game extends cc.Component {
                     // 绘制直线
                     let curColor;
                     let dataLen = self.levelData.json[Global.level].length;
-                    let dataItem = self.levelData.json[Global.level][curId];
+                    let dataItem = self.levelData.json[Global.level][i];
                     // 绘制点前点击对应的画线id
                     curColor = new cc.Color(dataItem.color[0],dataItem.color[1],dataItem.color[2],dataItem.color[3]);
                     // if(this.checkPathValid(self.movePath[curId],curId)) {
                     self.gtxArr[i].strokeColor = curColor;
-                    let movePathLen = self.movePath[curId].length;
-                    
+                    let movePathLen = self.movePath[i].length;
+                    // 清除路径
+                    self.gtxArr[i].clear();
                     for(let m = 0; m < movePathLen; m++) {
-                        let p = self.aArr[self.movePath[curId][m].x][self.movePath[curId][m].y];
+                        let p = self.aArr[self.movePath[i][m].x][self.movePath[i][m].y];
                         if(m === 0) {
                             self.gtxArr[i].moveTo(p.x,p.y);
                         } else {
@@ -524,7 +521,6 @@ export default class Game extends cc.Component {
                     }
                     self.gtxArr[i].stroke();
                 } else {
-                    // 清除对应的路径数据
                     self.gtxArr[i].clear();
                 }
             }
