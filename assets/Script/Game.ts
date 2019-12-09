@@ -207,14 +207,14 @@ export default class Game extends cc.Component {
         });
     }
     /**
-     * @param  {cc.Node} instance
-     * @param  {number} row
-     * @param  {number} col
-     * @param  {number} i
-     * @param  {any} path
-     * @param  {number[]} colorArr
-     * @param  {number} bRow
-     * @param  {number} bCol
+     * @param  {cc.Node} instance 预制体实例节点
+     * @param  {number} row 该圆点在网格中的行
+     * @param  {number} col 该圆点在网格中的列
+     * @param  {number} i 该圆点在网格中id编号
+     * @param  {any} path 该圆点所拥有的路径
+     * @param  {number[]} colorArr 颜色数组
+     * @param  {number} bRow 兄弟圆点所在的行
+     * @param  {number} bCol 兄弟圆点所在的列
      * @returns void
      */
     private addBallToGridCon(instance: cc.Node,row: number,col: number,i: number,path: any,colorArr: number[],bRow: number,bCol: number): void {
@@ -276,6 +276,8 @@ export default class Game extends cc.Component {
             let gtxItem = this.gtxArr[i];
             gtxItem.clear();
         }
+        // 重置结果信息
+        this.res = {};
     }
     touchMove(e: cc.Event.EventTouch): void {
         let res = this.getRowColByTouch(e);
@@ -607,17 +609,14 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
+            // 跳转下一关
+            
         }
         return res;
     }
     private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
         let pathItemArr: any[] = [];
-        let pathArrTemp: number[][] = [];
-        for(let i =0,len = pathArr.length;i < len; i++) {
-            pathArrTemp[i] = [];
-            pathArrTemp[i][0] = pathArr[i][0];
-            pathArrTemp[i][1] = pathArr[i][1];
-        }
+        
         for(let i = 0,len = pathItem.length; i < len; i++) {
             pathItemArr[i] = [];
             pathItemArr[i][0] = pathItem[i].x;
@@ -626,9 +625,8 @@ export default class Game extends cc.Component {
         console.log(`pathItemArr is `,pathItemArr);
         let rightNumber: number = 0;
         for(let m = 0,len = pathItemArr.length; m < len; m++) {
-            if(pathItemArr[m][0] === pathArr[m][0] && pathItemArr[m][1] === pathArr[m][1]) {
-                rightNumber++;
-            } else if(pathItemArr[m][0] === pathArr.reverse()[m][0] && pathItemArr[m][1] === pathArr.reverse()[m][1]) {
+            if((pathItemArr[m][0] === pathArr[m][0] && pathItemArr[m][1] === pathArr[m][1]) ||
+               (pathItemArr[m][0] === pathArr[len - 1 - m][0] && pathItemArr[m][1] === pathArr[len - 1 - m][1])) {
                 rightNumber++;
             }
         }

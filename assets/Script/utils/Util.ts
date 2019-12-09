@@ -13,4 +13,20 @@ export default class Util {
         }
         return false;
     }
+    public static deepClone(obj: any): any {
+        var newObj;
+        if (obj instanceof Array) {
+            newObj = [];
+        }
+        else if (obj instanceof Object) {
+            newObj = {};
+        }
+        else {
+            return obj;
+        }
+        for (let item in obj) {
+            newObj[item] = Util.deepClone(obj[item]);
+        }
+        return newObj;
+    }
 }
