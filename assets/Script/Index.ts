@@ -1,13 +1,4 @@
-// Learn TypeScript:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+// 圣诞树闪光
 const {ccclass, property} = cc._decorator;
 import Global from "./common/Global";
 @ccclass
@@ -23,6 +14,8 @@ export default class Index extends cc.Component {
     page3: cc.Node = null;
     @property(cc.Prefab)
     levelModel: cc.Prefab = null;
+    @property(cc.Node)
+    treeLight: cc.Node = null;
 
     private levelArr: cc.Node[];
     // 当前选择的关卡
@@ -109,5 +102,33 @@ export default class Index extends cc.Component {
             });
         }
     }
-    // update (dt) {}
+    btnEvent(e: cc.Event,data: any): void {
+        switch(data) {
+            case "share":
+                // 分享
+                if(CC_JSB) {
+                    // 移动端
+                    if(cc.sys.ANDROID) {
+                        // 安卓端
+                    } else if(cc.sys.IPHONE) {
+
+                    }
+                } else {
+                    // H5端
+
+                }
+                break;
+            case "back":
+                // 回到首页
+                cc.director.loadScene("Home");
+                break;    
+        }
+    }
+    update (dt) {
+        this.treeLight.opacity -= dt * 50;
+        if(this.treeLight.opacity <= 100) {
+            this.treeLight.opacity = 255;
+            
+        }
+    }
 }
