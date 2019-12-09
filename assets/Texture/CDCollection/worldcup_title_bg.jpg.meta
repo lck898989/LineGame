@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "80861d25-d54f-4569-a05a-e144c40ed371",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "worldcup_title_bg": {
+      "ver": "1.0.4",
+      "uuid": "a282f74e-179f-467f-8c95-7da6f46d09e2",
+      "rawTextureUuid": "80861d25-d54f-4569-a05a-e144c40ed371",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 640,
+      "height": 1386,
+      "rawWidth": 640,
+      "rawHeight": 1386,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

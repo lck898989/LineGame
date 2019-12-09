@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "5cf30085-fae2-4bad-852e-545d41a769ca",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "despacito_voez_particle_3b": {
+      "ver": "1.0.4",
+      "uuid": "22219c78-f268-4d04-be0e-9645081ab794",
+      "rawTextureUuid": "5cf30085-fae2-4bad-852e-545d41a769ca",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 126,
+      "height": 126,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

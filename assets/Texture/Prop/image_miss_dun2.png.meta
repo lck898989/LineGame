@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "a4367c31-8b86-4fb7-9002-1002bcaa8d2a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "image_miss_dun2": {
+      "ver": "1.0.4",
+      "uuid": "f09a2b4d-790c-4242-b9b2-e33c1066930f",
+      "rawTextureUuid": "a4367c31-8b86-4fb7-9002-1002bcaa8d2a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 1,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 198,
+      "height": 246,
+      "rawWidth": 202,
+      "rawHeight": 248,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

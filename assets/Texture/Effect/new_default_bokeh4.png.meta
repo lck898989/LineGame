@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "d007b193-48e5-4891-a94b-025a1975401e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "new_default_bokeh4": {
+      "ver": "1.0.4",
+      "uuid": "a7dafefe-6012-4d49-88f5-ee1fd3b1be3f",
+      "rawTextureUuid": "d007b193-48e5-4891-a94b-025a1975401e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 128,
+      "height": 128,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

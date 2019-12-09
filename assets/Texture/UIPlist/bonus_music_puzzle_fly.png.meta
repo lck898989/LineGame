@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "cc1c866e-51b8-4368-aa39-64b033bd6d70",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "bonus_music_puzzle_fly": {
+      "ver": "1.0.4",
+      "uuid": "b48c5e27-7ee3-4e49-9322-46350944e661",
+      "rawTextureUuid": "cc1c866e-51b8-4368-aa39-64b033bd6d70",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 4,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 122,
+      "height": 157,
+      "rawWidth": 124,
+      "rawHeight": 167,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "d8fff0c0-cded-4496-925d-571633358d19",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "despacito_bg_6": {
+      "ver": "1.0.4",
+      "uuid": "a77a488c-5b22-460e-80ef-7dfbac1f50c6",
+      "rawTextureUuid": "d8fff0c0-cded-4496-925d-571633358d19",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 128,
+      "height": 128,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

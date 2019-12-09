@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "678c6b69-fc93-4d80-b5ff-6d0d9a6647f1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "journey_card_001_bg": {
+      "ver": "1.0.4",
+      "uuid": "6d63cadb-7dd4-4bfa-ab6b-186d2814dcdd",
+      "rawTextureUuid": "678c6b69-fc93-4d80-b5ff-6d0d9a6647f1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1,
+      "offsetY": 1,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 628,
+      "height": 202,
+      "rawWidth": 630,
+      "rawHeight": 204,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "d13053be-d98b-4166-a11e-6ee73b53b76f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "Dialg_jos_Projectile_01": {
+      "ver": "1.0.4",
+      "uuid": "c2777e47-d6d0-45fb-920e-d8326d24f49e",
+      "rawTextureUuid": "d13053be-d98b-4166-a11e-6ee73b53b76f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 55,
+      "height": 135,
+      "rawWidth": 55,
+      "rawHeight": 135,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

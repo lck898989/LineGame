@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "79114d48-6978-4a57-8689-0f82867016ee",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "img_halloween_title_002": {
+      "ver": "1.0.4",
+      "uuid": "28efd94b-bcfa-498e-8c65-13759e81cd26",
+      "rawTextureUuid": "79114d48-6978-4a57-8689-0f82867016ee",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 512,
+      "height": 512,
+      "rawWidth": 512,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

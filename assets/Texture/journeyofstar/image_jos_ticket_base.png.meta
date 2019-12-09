@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "279d9deb-1996-468d-9268-976f265a4c6f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "image_jos_ticket_base": {
+      "ver": "1.0.4",
+      "uuid": "e76a7644-fc86-48e2-bc8f-8ce340dab143",
+      "rawTextureUuid": "279d9deb-1996-468d-9268-976f265a4c6f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 196,
+      "height": 52,
+      "rawWidth": 196,
+      "rawHeight": 52,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

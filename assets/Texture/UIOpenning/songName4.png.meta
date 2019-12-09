@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "7f8e1f30-d222-44ff-9f50-8a537801e50f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "songName4": {
+      "ver": "1.0.4",
+      "uuid": "76a952b1-8ccc-443a-9a2b-bb6da13ea6e6",
+      "rawTextureUuid": "7f8e1f30-d222-44ff-9f50-8a537801e50f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 182,
+      "height": 48,
+      "rawWidth": 182,
+      "rawHeight": 48,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

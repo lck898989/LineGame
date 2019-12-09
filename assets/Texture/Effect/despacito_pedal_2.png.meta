@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "ed881713-95a2-4255-a7d8-6f27712760ef",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "despacito_pedal_2": {
+      "ver": "1.0.4",
+      "uuid": "18a13b45-6ecc-435d-b27e-df8d5e3167ff",
+      "rawTextureUuid": "ed881713-95a2-4255-a7d8-6f27712760ef",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 167,
+      "height": 162,
+      "rawWidth": 167,
+      "rawHeight": 162,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

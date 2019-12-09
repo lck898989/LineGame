@@ -242,9 +242,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 190,
-      "g": 152,
-      "b": 152,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -299,7 +299,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+      "__uuid__": "e0da93ab-98e5-4d2a-b683-3db22a0cb0ef"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -630,9 +630,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 143,
-      "g": 41,
-      "b": 41,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -687,7 +687,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
+      "__uuid__": "0eca540f-fe3f-4e7b-a8f6-8d48cfdc6ec1"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -722,9 +722,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 143,
-      "g": 41,
-      "b": 41,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -779,7 +779,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
+      "__uuid__": "0eca540f-fe3f-4e7b-a8f6-8d48cfdc6ec1"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -814,9 +814,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 143,
-      "g": 41,
-      "b": 41,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -871,7 +871,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
+      "__uuid__": "0eca540f-fe3f-4e7b-a8f6-8d48cfdc6ec1"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -1073,7 +1073,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "level",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -1090,9 +1090,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 39,
-      "g": 10,
-      "b": 245,
+      "r": 241,
+      "g": 123,
+      "b": 13,
       "a": 255
     },
     "_contentSize": {

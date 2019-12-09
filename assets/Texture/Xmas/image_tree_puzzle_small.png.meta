@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "d7e1859d-6f87-41cc-9109-f63a9654dc9d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "image_tree_puzzle_small": {
+      "ver": "1.0.4",
+      "uuid": "231df724-6ab0-4077-99ae-b751503a666e",
+      "rawTextureUuid": "d7e1859d-6f87-41cc-9109-f63a9654dc9d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 110,
+      "height": 118,
+      "rawWidth": 110,
+      "rawHeight": 118,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

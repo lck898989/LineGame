@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "b3899f18-3dc5-455f-825c-af2449a485a7",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "img_pianist_018": {
+      "ver": "1.0.4",
+      "uuid": "fdb49ae0-003d-4e65-9ed9-59f1d03c7ce2",
+      "rawTextureUuid": "b3899f18-3dc5-455f-825c-af2449a485a7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1,
+      "height": 1,
+      "rawWidth": 1,
+      "rawHeight": 1,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

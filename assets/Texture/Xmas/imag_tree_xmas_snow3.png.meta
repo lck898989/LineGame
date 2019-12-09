@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "c25a668a-3875-47be-918c-17984349dff2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "imag_tree_xmas_snow3": {
+      "ver": "1.0.4",
+      "uuid": "40012dd3-64ef-42c7-a800-fb80ad4b81f6",
+      "rawTextureUuid": "c25a668a-3875-47be-918c-17984349dff2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 0,
+      "width": 58,
+      "height": 64,
+      "rawWidth": 64,
+      "rawHeight": 64,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

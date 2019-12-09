@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "c0c34c1f-a955-49c6-9cce-f8a4440773c3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "bg_tree_xmas_package": {
+      "ver": "1.0.4",
+      "uuid": "e0da93ab-98e5-4d2a-b683-3db22a0cb0ef",
+      "rawTextureUuid": "c0c34c1f-a955-49c6-9cce-f8a4440773c3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 620,
+      "height": 944,
+      "rawWidth": 620,
+      "rawHeight": 944,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

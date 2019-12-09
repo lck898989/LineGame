@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "3ba2cad2-db0c-43e0-aed1-e5be2fe719ac",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "bg_tree_xmas_bg": {
+      "ver": "1.0.4",
+      "uuid": "4c872c3c-6fa0-4820-b971-91ac576e65b7",
+      "rawTextureUuid": "3ba2cad2-db0c-43e0-aed1-e5be2fe719ac",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 640,
+      "height": 524,
+      "rawWidth": 640,
+      "rawHeight": 524,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

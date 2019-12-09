@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "e088d9f4-5151-4d7b-8cd1-cbe7b1ca1177",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "chest_puzzle_music_chest_small": {
+      "ver": "1.0.4",
+      "uuid": "a233b7fd-2890-4132-b1ed-c8696fc8688d",
+      "rawTextureUuid": "e088d9f4-5151-4d7b-8cd1-cbe7b1ca1177",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 62,
+      "height": 47,
+      "rawWidth": 62,
+      "rawHeight": 47,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

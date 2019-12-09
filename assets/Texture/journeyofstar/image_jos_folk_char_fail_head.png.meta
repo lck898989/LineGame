@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "10bf1351-ea4a-440b-b8a8-59b2d07cb00e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "image_jos_folk_char_fail_head": {
+      "ver": "1.0.4",
+      "uuid": "410d9ad2-ec60-4528-8a44-8d23558d6d39",
+      "rawTextureUuid": "10bf1351-ea4a-440b-b8a8-59b2d07cb00e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 88,
+      "height": 91,
+      "rawWidth": 88,
+      "rawHeight": 91,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

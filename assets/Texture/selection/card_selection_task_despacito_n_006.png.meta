@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "bc917bf3-73fe-469d-af19-c55c495c67e3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "card_selection_task_despacito_n_006": {
+      "ver": "1.0.4",
+      "uuid": "0f240709-4bcf-48ac-97e6-f49d82313785",
+      "rawTextureUuid": "bc917bf3-73fe-469d-af19-c55c495c67e3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": -0.5,
+      "trimX": 15,
+      "trimY": 9,
+      "width": 19,
+      "height": 33,
+      "rawWidth": 50,
+      "rawHeight": 50,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

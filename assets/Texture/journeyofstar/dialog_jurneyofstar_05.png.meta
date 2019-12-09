@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "6e57bc34-faf8-4034-b66f-8f569b4ed69f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "dialog_jurneyofstar_05": {
+      "ver": "1.0.4",
+      "uuid": "aaa8fa93-4e70-47e8-a7d0-4a7397c503b9",
+      "rawTextureUuid": "6e57bc34-faf8-4034-b66f-8f569b4ed69f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 298,
+      "height": 112,
+      "rawWidth": 298,
+      "rawHeight": 112,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

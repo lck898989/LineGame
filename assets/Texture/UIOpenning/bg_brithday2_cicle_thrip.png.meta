@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "273690f0-cdc5-4df6-96c6-95131f34ebd9",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "bg_brithday2_cicle_thrip": {
+      "ver": "1.0.4",
+      "uuid": "be91c19f-99be-4c52-9484-c66703eb4515",
+      "rawTextureUuid": "273690f0-cdc5-4df6-96c6-95131f34ebd9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 77,
+      "height": 83,
+      "rawWidth": 77,
+      "rawHeight": 83,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
