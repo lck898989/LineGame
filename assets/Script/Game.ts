@@ -313,8 +313,6 @@ export default class Game extends cc.Component {
             }
             // if(e.getLocation().x )
             if(this.canMove && res.p.x !== -1 && res.p.y !== -1 && currentPath) {
-                console.log("map row col is ",this.map[res.p.x][res.p.y]);
-                console.log("ballMap is ",this.ballMap[res.p.x][res.p.y]);
                 // 获得圆点的id号
                 // let id = this.ballMap[res.p.x][res.p.y].getComponent("Ball").id;
                 if(this.map[res.p.x][res.p.y] && this.ballMap[res.p.x][res.p.y]) {
@@ -352,7 +350,6 @@ export default class Game extends cc.Component {
                 } else {
                     // 如果经过的网格没有颜色
                     if(!gridComponent.changeColor && !this.isContinue) {
-                        console.log("move的地方没有颜色了不是继续");
                         // 经过的网格没有被染色
                         gridComponent.changeColor = true;
                         gridComponent.pathId = this.currentId;
@@ -363,7 +360,6 @@ export default class Game extends cc.Component {
                             currentPath.push(res.p);
                         }
                     } else if(!gridComponent.changeColor && this.isContinue) {
-                        console.log("move的地方没有颜色是继续");
                         // 在这种情况的时候回就绪划线操作
                         // let pathid = gridComponent.pathId;
                         if(this.curMoveId !== -1) {
@@ -377,7 +373,6 @@ export default class Game extends cc.Component {
                         }
     
                     } else {
-                        console.log("----> 网格是否有颜色",gridComponent.changeColor,"-->是否是继续",this.isContinue);
                         this.checkBackAndDeal(currentPath,res);
                     }
                 }
@@ -417,7 +412,6 @@ export default class Game extends cc.Component {
             if(circleNode && circleNode.getComponent("Ball")) {
                 this.currentId = circleNode.getComponent("Ball").id;
             }
-            console.log("currrentid is ",this.currentId," and lastid is ",this.lastId);
             // 当最后点击的id和当前点击的圆点的id相同的时候清空路径 && 点击的不是空白网格
             if(this.map[res.p.x][res.p.y]) {
                 let ballId = circleNode.getComponent("Ball").id;
@@ -435,11 +429,9 @@ export default class Game extends cc.Component {
                 // let currentGraphic = this.gtxArr[ballId];
                 // currentGraphic.clear();
                 this.isReStart = true;
-                console.log("重新划线");
             } else if(!this.map[res.p.x][res.p.y] && this.gridMap[res.p.x][res.p.y].getComponent("Grid").changeColor){
                 // 点击了空白网格区域并且颜色已经改变了 可以接上之前的颜色进行移动
                 this.canMove = true;
-                console.log("继续画线");
                 this.isContinue = true;
                 if(this.gridMap[res.p.x][res.p.y].getComponent("Grid").pathId !== -1) {
                     this.currentId = this.gridMap[res.p.x][res.p.y].getComponent("Grid").pathId;
@@ -453,8 +445,11 @@ export default class Game extends cc.Component {
                 this.canMove = false;
             }
             this.startVec = res.p;
-            if(!Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
-                this.movePath[this.currentId].push(this.startVec);
+            if(this.ballMap[res.p.x][res.p.y]) {
+                console.log("当前点击的网格有圆点");
+                if(!Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
+                    this.movePath[this.currentId].push(this.startVec);
+                }
             }
             
             // 打开可以移动的开关
@@ -492,7 +487,6 @@ export default class Game extends cc.Component {
                     this.moveStartColor = realTarget.color;
                 }
             }
-            console.log("startVes is ",this.startVec);
             // 最后一次触摸的点的ID
             this.lastId = this.currentId;
             return true;
@@ -518,8 +512,8 @@ export default class Game extends cc.Component {
             // 判断游戏是否过关
             console.log("path is ",this.movePath);
         }
+        // 检测是否过关
         this.checkIsPass();
-
     }
     
     onDestroy() {
@@ -550,6 +544,7 @@ export default class Game extends cc.Component {
     }
     update (dt) {
         this.drawPath();
+        
     }
     // 重新绘制路径信息
     private drawPath(): void {
@@ -608,8 +603,8 @@ export default class Game extends cc.Component {
 
                 if(movePathItem.length === pathArr.length) {
                     let singlePathRight: number = 0;
-                    let res = this.checkPathArrIsEqual(movePathItem,pathArr);
-                    if(res) {
+                    let checkRes = this.checkPathArrIsEqual(movePathItem,pathArr);
+                    if(checkRes) {
                         this.res[`${i}`] = true;
                     }
                 }
