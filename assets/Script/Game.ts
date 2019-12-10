@@ -195,6 +195,9 @@ export default class Game extends cc.Component {
             }
         } else {
             console.log("这一关的数据还没有敬请期待");
+            // if(Global.level >= 2) {
+            //     Global.level--;
+            // }
         }
     }
     // 优化方向对预制体进行预加载
@@ -445,8 +448,8 @@ export default class Game extends cc.Component {
                 this.canMove = false;
             }
             this.startVec = res.p;
-            if(this.ballMap[res.p.x][res.p.y]) {
-                console.log("当前点击的网格有圆点");
+            console.log("Util is ",Util);
+            if(this.ballMap[res.p.x][res.p.y] && !Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
                 if(!Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
                     this.movePath[this.currentId].push(this.startVec);
                 }
@@ -614,7 +617,7 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
-            Global.level = 2;
+            Global.level++;
             // 跳转下一关
             cc.director.loadScene("Game");
         }

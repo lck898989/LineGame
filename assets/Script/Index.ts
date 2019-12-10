@@ -51,13 +51,21 @@ export default class Index extends cc.Component {
                 for(let j = 0; j < col; j++) {
                     num++;
                     let leveNode = cc.instantiate(this.levelModel);
-                    
+                    // if(Global.level)
                     let tempX = -this.page1.width / 2 + leveNode.width / 2 + j * (100 + 30);
                     let tempY = this.page1.height / 2 - leveNode.height / 2 - i * (100 + 25);
                     this.levelArr.push(leveNode);
                     leveNode.name = m + "_" + i + "_" + j;
                     let numLabel: cc.Label = <cc.Label>leveNode.getChildByName("num").getComponent(cc.Label);
-                    numLabel.string = num.toString();
+                    if(num <= Global.level) {
+                        // 显示数字
+                        numLabel.string = num.toString();
+                        leveNode.getChildByName("lock").active = false;
+                    } else {
+                        numLabel.string = "";
+                        // 显示锁
+                        leveNode.getChildByName("lock").active = true;
+                    }
                     leveNode.on("touchstart",this.touchNodeItem,leveNode);
                     leveNode.on("touchend",this.touchNodeItemend,leveNode);
                     leveNode.setPosition(cc.v2(tempX,tempY));
@@ -68,7 +76,7 @@ export default class Index extends cc.Component {
     }
     // 一个关卡被点击
     touchNodeItem(): void {
-        if(this instanceof cc.Node) {
+        if(this instanceof cc.Node && !this.getChildByName("lock").active) {
             console.log(this.name);
             let self: cc.Node = <cc.Node>this;
             self.color = new cc.Color(125,125,125,100);
@@ -76,7 +84,7 @@ export default class Index extends cc.Component {
         }         
     }
     touchNodeItemend(): void {
-        if(this instanceof cc.Node) {
+        if(this instanceof cc.Node && !this.getChildByName("lock").active) {
             let self = <cc.Node>this;
             self.setScale(1.0);
             let numArr = self.name.split("_");
