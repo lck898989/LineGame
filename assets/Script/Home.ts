@@ -14,7 +14,8 @@ export default class Home extends cc.Component {
     // onLoad () {}
 
     start () {
-
+        console.log("layer is ",cc.find("layer"));
+        cc.game.addPersistRootNode(cc.find("layer"));
     }
     // 跳转首页
     goIndex():void {

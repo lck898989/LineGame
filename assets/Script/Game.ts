@@ -20,6 +20,12 @@ export default class Game extends cc.Component {
     @property(cc.AudioClip)
     lineAudio: cc.AudioClip = null;
 
+    // 过关之后进行动画播放的节点
+    @property(cc.Node)
+    successBack: cc.Node = null;
+    @property(cc.Node)
+    gift: cc.Node = null;
+
     // 初始化出来的预制体节点
     private initedPreNode: cc.Node = null;
     // 开始点击的所在的行列
@@ -72,6 +78,10 @@ export default class Game extends cc.Component {
     // private penNode: cc.Node = null;
     private gtxArr: cc.Graphics[] = null;
     private colorCircleArr: cc.Node[] = null;
+
+    private successAnimation: cc.Animation = null;
+    private successBackAnimation: cc.Animation = null;
+
     // 存储结果的对象
     private res: any = {};
     public async start () {
@@ -114,7 +124,13 @@ export default class Game extends cc.Component {
         this.addGrphicsToNode();
         // 初始化球
         this.initCircle();
-        
+
+        // 动画对应的节点active是false
+        this.successBack.active = false;
+        this.gift.active = false;
+        // 获取动画组件
+        this.successBackAnimation = this.successBack.getComponent(cc.Animation);
+        // this.successBackAnimation.on("finished",this.successBackOver,this);
     }
     // 添加Griphics 组件到父节点中 有多少种类型的圆点就用几个Griphics
     private addGrphicsToNode(): void {
@@ -199,18 +215,6 @@ export default class Game extends cc.Component {
             //     Global.level--;
             // }
         }
-    }
-    // 优化方向对预制体进行预加载
-    private getPrefabInstanceAsync(index: number): Promise<cc.Node> {
-        return new Promise((resolve,reject) => {
-            cc.loader.loadRes("balls/" + index,(err,prefab: cc.Prefab) => {
-                if(err) {
-                    reject("error");
-                }
-                let prefabNode: cc.Node = cc.instantiate(prefab);
-                resolve(cc.instantiate(prefabNode));
-            })
-        });
     }
     /**
      * @param  {cc.Node} instance 预制体实例节点
@@ -523,7 +527,9 @@ export default class Game extends cc.Component {
         this.gridCon.off("touchstart",this.touchBegin,this);
         this.gridCon.off("touchmove",this.touchMove,this);
         this.gridCon.off("touchend",this.touchEnd,this);
-
+        // if(this.successAnimation) {
+        //     this.successAnimation.off("finished",this.successOver,this);
+        // }
         this.movePath = {};
     }
     // 获得点击的行
@@ -617,11 +623,20 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
-            Global.level++;
-            // 跳转下一关
-            cc.director.loadScene("Game");
+            this.successBack.active = true;
+            this.gift.active = true;
+            // this.successAnimation
+            this.successBackAnimation.on("finished",this.successAnimationOver,this);
+            let animationState: cc.AnimationState = this.successBackAnimation.play();
+            animationState.repeatCount = 3;
         }
         return res;
+    }
+    // 成功动画播放完毕
+    private successAnimationOver(): void {
+        console.log("animation play over");
+        Global.level++;
+        cc.director.loadScene("Game");
     }
     private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
         let pathItemArr: any[] = [];
