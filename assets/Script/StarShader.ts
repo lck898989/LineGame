@@ -38,6 +38,7 @@ export default class StarShader extends cc.Component {
         if(this._material.effect) {
             this._material.effect.setProperty('time',start);
             this._start = start;
+            
         }
     }
 }
