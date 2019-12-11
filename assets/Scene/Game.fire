@@ -1126,7 +1126,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 2,
     "_components": [
       {
@@ -1247,7 +1247,6 @@
     "lineAudio": {
       "__uuid__": "1d0e9d0c-1bd2-4d98-b324-683b99fe9154"
     },
-    "successBack": null,
     "gift": {
       "__id__": 23
     },
