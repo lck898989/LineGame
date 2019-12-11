@@ -2,6 +2,7 @@ const {ccclass, property} = cc._decorator;
 import Grid from "./Grid";
 import Util from "./utils/Util";
 import Global from "./common/Global";
+import LayerManager from "./manager/LayerManager";
 
 interface touchInfo {
     "p"   : cc.Vec2,
@@ -20,9 +21,6 @@ export default class Game extends cc.Component {
     @property(cc.AudioClip)
     lineAudio: cc.AudioClip = null;
 
-    // 过关之后进行动画播放的节点
-    @property(cc.Node)
-    successBack: cc.Node = null;
     @property(cc.Node)
     gift: cc.Node = null;
 
@@ -79,9 +77,6 @@ export default class Game extends cc.Component {
     private gtxArr: cc.Graphics[] = null;
     private colorCircleArr: cc.Node[] = null;
 
-    private successAnimation: cc.Animation = null;
-    private successBackAnimation: cc.Animation = null;
-
     // 存储结果的对象
     private res: any = {};
     public async start () {
@@ -125,12 +120,7 @@ export default class Game extends cc.Component {
         // 初始化球
         this.initCircle();
 
-        // 动画对应的节点active是false
-        this.successBack.active = false;
         this.gift.active = false;
-        // 获取动画组件
-        this.successBackAnimation = this.successBack.getComponent(cc.Animation);
-        // this.successBackAnimation.on("finished",this.successBackOver,this);
     }
     // 添加Griphics 组件到父节点中 有多少种类型的圆点就用几个Griphics
     private addGrphicsToNode(): void {
@@ -623,17 +613,21 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
-            this.successBack.active = true;
             this.gift.active = true;
+
+            // 层级管理器显示遮罩
+            LayerManager.showMask(true);
             // this.successAnimation
-            this.successBackAnimation.on("finished",this.successAnimationOver,this);
-            let animationState: cc.AnimationState = this.successBackAnimation.play();
-            animationState.repeatCount = 3;
+            // this.successBackAnimation.on("finished",this.successAnimationOver,this);
+            // let animationState: cc.AnimationState = this.successBackAnimation.play();
+            // animationState.repeatCount = 3;
+            let self = this;
+            LayerManager.showAnimation("success1",3,self,self.successAnimationOver);
         }
         return res;
     }
     // 成功动画播放完毕
-    private successAnimationOver(): void {
+    private successAnimationOver(e: cc.Event.EventCustom): void {
         console.log("animation play over");
         Global.level++;
         cc.director.loadScene("Game");
