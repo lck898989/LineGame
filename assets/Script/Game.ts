@@ -92,7 +92,6 @@ export default class Game extends cc.Component {
         this.gridCon.on("touchstart",this.touchBegin,this);
         this.gridCon.on("touchmove",this.touchMove,this);
         this.gridCon.on("touchend",this.touchEnd,this);
-        console.log("start start start");
         this.levelData = await new Promise((resolve,reject) => {
             cc.loader.loadRes("config/oneLevel.json",cc.JsonAsset,(err: Error,res: any) => {
                 if(err) {
@@ -107,7 +106,6 @@ export default class Game extends cc.Component {
         if(!Global.level) {
             Global.level = 1;
         }
-        console.log("------>>",Global.prefabBuffer);
         // cc.JsonAsset
         // for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
         //     this.colorCircleArr.push();
@@ -150,8 +148,6 @@ export default class Game extends cc.Component {
             this.ballMap[i] = []
             for(let j = 0; j < col; j++) {
                 let nodeTemp = cc.instantiate(this.gridModel);
-                console.log("tempX is ",nodeTemp.width);
-                console.log("tempY is ",nodeTemp.height);
                 let tempX = -this.gridCon.width / 2 + nodeTemp.width / 2 + j * nodeTemp.width;
                 let tempY = this.gridCon.height / 2 - nodeTemp.height / 2 - i * nodeTemp.height;
                 nodeTemp.getComponent("Grid").row = i;
@@ -171,9 +167,7 @@ export default class Game extends cc.Component {
     // 初始化棋子
     private initCircle() {
         let level = Global.level === 0 ? 1 : Global.level;
-        console.log("level is ",level);
         let dataArr = this.levelData.json[level];
-        console.log("dataArr is ",dataArr);
         
         // dragonBones
         if(dataArr) {
@@ -244,6 +238,8 @@ export default class Game extends cc.Component {
         console.log("data is ",data);
         switch(data) {
             case "back":
+                // 清除所有的画笔
+                this.clearPath();
                 cc.director.loadScene("Index");
                 break;
             case "reset":
@@ -387,7 +383,6 @@ export default class Game extends cc.Component {
             }
         }
         if(moveIndex !== -1 && (moveIndex === pathLen - 2)) {
-            console.log("开始改变路径");
             let lastInfo: cc.Vec2 = currentPath[pathLen - 1];
             let lastGridCom = this.gridMap[lastInfo.x][lastInfo.y].getComponent("Grid");
             lastGridCom.changeColor = false;
@@ -442,7 +437,6 @@ export default class Game extends cc.Component {
                 this.canMove = false;
             }
             this.startVec = res.p;
-            console.log("Util is ",Util);
             if(this.ballMap[res.p.x][res.p.y] && !Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
                 if(!Util.isContainVec2(this.startVec,this.movePath[this.currentId])) {
                     this.movePath[this.currentId].push(this.startVec);
@@ -520,7 +514,8 @@ export default class Game extends cc.Component {
         // if(this.successAnimation) {
         //     this.successAnimation.off("finished",this.successOver,this);
         // }
-        this.clearPath();
+
+        // this.clearPath();
         this.movePath = {};
     }
     // 获得点击的行
@@ -553,9 +548,15 @@ export default class Game extends cc.Component {
             let curId: number = this.currentId;
             let self = this;
             // 遍历所有的路径
-            for(let i = 0; i < levelNumber; i++) {                    
-                // 清除路径重要
-                self.gtxArr[i].clear();
+            for(let i = 0; i < levelNumber; i++) {
+                if(self.gtxArr) {
+                    // 清除路径重要
+                    self.gtxArr[i].clear(true);
+                    // 自己手动释放
+                    if(cc.isValid(self.gtxArr[i].node)) {
+                        self.gtxArr[i].node.destroy();
+                    }
+                }                    
             }
         }
     }
@@ -627,22 +628,24 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
-            this.gift.active = true;
-
             // 层级管理器显示遮罩
-            LayerManager.showMask(true);
+            LayerManager.getInstance().showMask(true);
             // this.successAnimation
             // this.successBackAnimation.on("finished",this.successAnimationOver,this);
             // let animationState: cc.AnimationState = this.successBackAnimation.play();
+            LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,true);
             // animationState.repeatCount = 3;
             let self = this;
-            LayerManager.showAnimation("success1",3,self,self.successAnimationOver);
+            LayerManager.getInstance().showAnimation("success1",3,self,self.successAnimationOver);
         }
         return res;
     }
     // 成功动画播放完毕
     private successAnimationOver(e: cc.Event.EventCustom): void {
         console.log("animation play over");
+        LayerManager.getInstance().showMask(false);
+        LayerManager.getInstance().deleteAnimation("success1");
+        LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,false);
         Global.level++;
         cc.director.loadScene("Game");
     }
