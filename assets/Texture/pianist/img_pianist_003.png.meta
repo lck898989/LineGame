@@ -1,10 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.3",
   "uuid": "31480a1f-704d-42c8-bffb-2f49b6864f5d",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
   "platformSettings": {},
   "subMetas": {
     "img_pianist_003": {

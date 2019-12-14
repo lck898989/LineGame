@@ -1,10 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.3",
   "uuid": "3b9d699a-3aec-444d-8f0a-ae937cbbd9b0",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
   "platformSettings": {},
   "subMetas": {
     "Plist_social": {

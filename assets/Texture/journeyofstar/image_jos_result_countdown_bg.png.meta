@@ -1,10 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.3",
   "uuid": "7870295f-866f-4f47-95c6-96f948f3de4d",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
   "platformSettings": {},
   "subMetas": {
     "image_jos_result_countdown_bg": {

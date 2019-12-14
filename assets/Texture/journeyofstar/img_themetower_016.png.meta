@@ -1,10 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.3",
   "uuid": "8c38f8fd-6bba-4b48-bd6a-9bb012c9c133",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
   "platformSettings": {},
   "subMetas": {
     "img_themetower_016": {

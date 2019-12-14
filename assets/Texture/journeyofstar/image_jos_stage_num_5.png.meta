@@ -1,10 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.3",
   "uuid": "3cfbfd97-3aa6-4749-94c1-bb8ccd8545de",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
   "platformSettings": {},
   "subMetas": {
     "image_jos_stage_num_5": {
