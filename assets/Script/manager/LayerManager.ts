@@ -99,11 +99,13 @@ export default class LayerManager extends cc.Component {
             } else {
                 animationCom.defaultClip = self._instance.animationCache[animationName];
             }
+            // 加载完整之后自动播放
             animationCom.playOnLoad = true;
-            self._instance.animationState =  animationCom.play();
+            self._instance.animationState = animationCom.play();
             // 设置动画播放次数
             self._instance.animationState.repeatCount = playTime;
             if(animationOverCallBack) {
+                // 动画执行完毕执行回调函数
                 animationCom.on("finished",animationOverCallBack,target);
             }
 
