@@ -520,6 +520,7 @@ export default class Game extends cc.Component {
         // if(this.successAnimation) {
         //     this.successAnimation.off("finished",this.successOver,this);
         // }
+        this.clearPath();
         this.movePath = {};
     }
     // 获得点击的行
@@ -544,6 +545,19 @@ export default class Game extends cc.Component {
     update (dt) {
         this.drawPath();
         
+    }
+    // 清除所有的路径信息
+    private clearPath(): void {
+        if(this.levelData && this.levelData.json[Global.level]) {
+            let levelNumber = this.levelData.json[Global.level].length;
+            let curId: number = this.currentId;
+            let self = this;
+            // 遍历所有的路径
+            for(let i = 0; i < levelNumber; i++) {                    
+                // 清除路径重要
+                self.gtxArr[i].clear();
+            }
+        }
     }
     // 重新绘制路径信息
     private drawPath(): void {
