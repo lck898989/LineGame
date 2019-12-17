@@ -85,14 +85,19 @@ export default class LayerManager extends cc.Component {
         }
         if(this.texLayer) {
             this.texLayer.parent.active = true;
+            this.texLayer.active = true;
             node.scale = 0.5;
+            // if(node.parent.)
+            console.log("texlyaer's active is ",this.texLayer.active);
+            console.log("node is ",node);
             this.texLayer.addChild(node);
             // to(duration: number, props: any, opts: {progress: Function; easing: Function|string; })
             cc.tween(node).to(0.5,{
-                scale: 1
-            },{progress: null,easing: cc.easeBounceInOut}).start().call(() => {
+                scale: 1,
+                rotation: 360
+            },{easing: "bounceInOut"}).start().call(() => {
                 console.log("动画播放完毕");
-            })
+            });
             // 设置层级关系
             this.texLayer.zIndex = this.offset + Layer.TEXTURE;
         }

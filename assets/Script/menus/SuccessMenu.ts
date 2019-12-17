@@ -22,12 +22,15 @@ export default class SuccessMenu extends cc.Component {
             case "nextLevel":
                 Global.level++;
                 cc.director.loadScene("Game");
-                LayerManager.getInstance().removeSprite("menu");
-                LayerManager.getInstance().showMask(false);
-                break;    
+                break;
+            case "close":
+                // 关闭弹窗
+                break;        
         }
+        LayerManager.getInstance().removeSprite("menu");
+        LayerManager.getInstance().showMask(false);
     }
     update (dt: number) {
-        
+
     }
 }
