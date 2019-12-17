@@ -71,21 +71,40 @@ export default class LayerManager extends cc.Component {
         }
 
     }
-    public showSprite(sf: cc.SpriteFrame,isHide: boolean) {
+    public showSprite(node: cc.Node,name: string) {
+        // 将该node添加到空节点下
+        node.name = name;
         if(!this.texLayer) {
             let managerCom: cc.Component = cc.find("layer").getComponent("LayerManager");
             let layerNode: cc.Node = managerCom.node;
             this.texLayer = layerNode.getChildByName("tex");
         }
         if(this.texLayer) {
-            if(isHide) {
-                // this.texLayer.getComponent(cc.Sprite).spriteFrame = sf;
-                this.texLayer.active = true;
-            } else {
-                this.texLayer.active = false;
+            this.texLayer.parent.active = true;
+            node.scale = 0.5;
+            this.texLayer.addChild(node);
+            // to(duration: number, props: any, opts: {progress: Function; easing: Function|string; })
+            cc.tween(node).to(0.5,{
+                scale: 1
+            },{progress: null,easing: cc.easeBounceInOut}).call(() => {
+                console.log("动画播放完毕");
+            })
+            this.texLayer.zIndex = this.offset + Layer.TEXTURE;
+        }
+    }
+    public removeSprite(name: string) {
+        if(!this.texLayer) {
+            let managerCom: cc.Component = cc.find("layer").getComponent("LayerManager");
+            let layerNode: cc.Node = managerCom.node;
+            this.texLayer = layerNode.getChildByName("tex");
+        }
+        if(this.texLayer) {
+            let spriteTemp: cc.Node = this.texLayer.getChildByName(name);
+            if(spriteTemp) {
+                // destroy该节点
+                this.texLayer.getChildByName(name).destroy();
             }
         }
-
     }
     // 显示对话框
     public showToast(toastNode: cc.Node): void {
