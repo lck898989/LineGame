@@ -159,14 +159,14 @@ export default class LayerManager extends cc.Component {
     public deleteAnimation(animationName: string) {
         if(animationName !== "") {
             // 停止动画
-            LayerManager._instance.animationLayer.getComponent(cc.Animation).stop();
+            this.animationLayer.getComponent(cc.Animation).stop();
             // 清空内存
-            LayerManager._instance.animationLayer.getComponent(cc.Animation).defaultClip = null;
-            LayerManager._instance.animationLayer.active = false;
+            this.animationLayer.getComponent(cc.Animation).defaultClip = null;
+            this.animationLayer.active = false;
         }
     }
     public clearAnimationCache(): void {
-        LayerManager._instance.animationCache = {};
+        this.animationCache = {};
     }
     start () {
 

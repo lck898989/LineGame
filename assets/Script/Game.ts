@@ -79,6 +79,10 @@ export default class Game extends cc.Component {
 
     // 存储结果的对象
     private res: any = {};
+    public onLoad(): void {
+        console.log("movePath is ",this.movePath);
+        console.log("===>> gtxArr is ",this.gtxArr);
+    }
     public async start () {
         this.gridArr = [];
         this.ballArr = [];
@@ -125,6 +129,7 @@ export default class Game extends cc.Component {
         if(this.levelData && this.levelData.json && this.levelData.json[Global.level]) {
             for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
                 let  penNode = new cc.Node();
+                penNode.name = "pen" + i.toString();
                 penNode.addComponent(cc.Graphics);
                 this.gridCon.addChild(penNode);
                 // 添加到画笔数组中 设置每个画笔的样式信息起点类型，拐点类型
@@ -370,6 +375,8 @@ export default class Game extends cc.Component {
                     }
                 }
             }
+            // 检查是否过关
+            // this.checkIsPass();
         }
     }
     // 处理回退连线
@@ -558,6 +565,7 @@ export default class Game extends cc.Component {
                     }
                 }                    
             }
+            self.gtxArr = [];
         }
     }
     // 重新绘制路径信息
@@ -633,7 +641,7 @@ export default class Game extends cc.Component {
             // this.successAnimation
             // this.successBackAnimation.on("finished",this.successAnimationOver,this);
             // let animationState: cc.AnimationState = this.successBackAnimation.play();
-            LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,true);
+            // LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,true);
             // animationState.repeatCount = 3;
             let self = this;
             LayerManager.getInstance().showAnimation("success1",3,self,self.successAnimationOver);
@@ -645,7 +653,10 @@ export default class Game extends cc.Component {
         console.log("animation play over");
         LayerManager.getInstance().showMask(false);
         LayerManager.getInstance().deleteAnimation("success1");
-        LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,false);
+        // LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,false);
+
+        this.movePath = {};
+
         Global.level++;
         cc.director.loadScene("Game");
     }
