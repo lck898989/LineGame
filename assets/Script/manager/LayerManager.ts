@@ -89,6 +89,7 @@ export default class LayerManager extends cc.Component {
             },{progress: null,easing: cc.easeBounceInOut}).call(() => {
                 console.log("动画播放完毕");
             })
+            // 设置层级关系
             this.texLayer.zIndex = this.offset + Layer.TEXTURE;
         }
     }
@@ -102,7 +103,7 @@ export default class LayerManager extends cc.Component {
             let spriteTemp: cc.Node = this.texLayer.getChildByName(name);
             if(spriteTemp) {
                 // destroy该节点
-                this.texLayer.getChildByName(name).destroy();
+                spriteTemp.destroy();
             }
         }
     }

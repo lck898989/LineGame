@@ -640,6 +640,7 @@ export default class Game extends cc.Component {
             res = true;
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
+            // 显示菜单信息
             LayerManager.getInstance().showSprite(cc.instantiate(this.menuPrefab),"menu");
         }
         return res;
