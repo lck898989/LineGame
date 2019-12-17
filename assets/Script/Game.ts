@@ -640,26 +640,9 @@ export default class Game extends cc.Component {
             res = true;
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
-            // this.successAnimation
-            // this.successBackAnimation.on("finished",this.successAnimationOver,this);
-            // let animationState: cc.AnimationState = this.successBackAnimation.play();
-            // LayerManager.getInstance().showSprite(this.gift.getComponent(cc.Sprite).spriteFrame,true);
-            // animationState.repeatCount = 3;
-            let self = this;
             LayerManager.getInstance().showSprite(cc.instantiate(this.menuPrefab),"menu");
         }
         return res;
-    }
-    // 成功动画播放完毕
-    private successAnimationOver(e: cc.Event.EventCustom): void {
-        // console.log("animation play over");
-        // LayerManager.getInstance().showMask(false);
-        
-
-        // this.movePath = {};
-
-        // Global.level++;
-        // cc.director.loadScene("Game");
     }
     private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
         let pathItemArr: any[] = [];

@@ -28,6 +28,6 @@ export default class SuccessMenu extends cc.Component {
         }
     }
     update (dt: number) {
-
+        
     }
 }
