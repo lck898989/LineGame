@@ -71,6 +71,10 @@ export default class LayerManager extends cc.Component {
         }
 
     }
+    /**
+     * @param  {cc.Node} node 需要添加的图片节点可以是一个预制体的实例也可以是一个空节点
+     * @param  {string} name 添加到父节点的该节点名字
+     */
     public showSprite(node: cc.Node,name: string) {
         // 将该node添加到空节点下
         node.name = name;
@@ -86,7 +90,7 @@ export default class LayerManager extends cc.Component {
             // to(duration: number, props: any, opts: {progress: Function; easing: Function|string; })
             cc.tween(node).to(0.5,{
                 scale: 1
-            },{progress: null,easing: cc.easeBounceInOut}).call(() => {
+            },{progress: null,easing: cc.easeBounceInOut}).start().call(() => {
                 console.log("动画播放完毕");
             })
             // 设置层级关系
