@@ -1,5 +1,6 @@
 import Global from "../common/Global";
 import LayerManager from "../manager/LayerManager";
+import Game from "../Game";
 
 const {ccclass, property} = cc._decorator;
 
@@ -25,6 +26,8 @@ export default class SuccessMenu extends cc.Component {
                 break;
             case "close":
                 // 关闭弹窗
+                // Game.prototype.gameOver = 
+                cc.director.loadScene("Game");
                 break;
             }
         LayerManager.getInstance().removeSprite("menu");

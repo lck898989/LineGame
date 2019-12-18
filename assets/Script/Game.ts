@@ -78,7 +78,8 @@ export default class Game extends cc.Component {
     // private penNode: cc.Node = null;
     private gtxArr: cc.Graphics[] = null;
     private colorCircleArr: cc.Node[] = null;
-
+    // 游戏是否结束
+    private gameOver: boolean = false;
     // 存储结果的对象
     private res: any = {};
     public onLoad(): void {
@@ -99,6 +100,7 @@ export default class Game extends cc.Component {
         this.gridCon.on("touchstart",this.touchBegin,this);
         this.gridCon.on("touchmove",this.touchMove,this);
         this.gridCon.on("touchend",this.touchEnd,this);
+        // 加载关卡数据 包含所有关卡的数据
         this.levelData = await new Promise((resolve,reject) => {
             cc.loader.loadRes("config/level.json",cc.JsonAsset,(err: Error,res: any) => {
                 if(err) {
@@ -550,7 +552,9 @@ export default class Game extends cc.Component {
     }
     update (dt) {
         this.drawPath();
-        
+        if(this.gameOver) {
+            this.clearPath();
+        }
     }
     // 清除所有的路径信息
     private clearPath(): void {
@@ -569,6 +573,16 @@ export default class Game extends cc.Component {
                         self.gtxArr[i].node.destroy();
                     }
                 }                    
+            }
+            // 清除网格背景颜色
+            for(let i = 0; i < this.gridArr.length; i++) {
+                let gridItem = this.gridArr[i];
+                if(gridItem.getComponent("Grid").changeColor) {
+                    // 恢复默认颜色
+                    gridItem.getChildByName("grid").color = new cc.Color(255,255,255,255);
+                    // 还原网格背景的修改颜色属性
+                    gridItem.getComponent("Grid").changeColor = false;
+                }
             }
             self.gtxArr = [];
             // self.movePath = {};
@@ -611,7 +625,6 @@ export default class Game extends cc.Component {
                     }
                 }
             }
-            
         }
     }
     // 检测是否过关
@@ -640,14 +653,15 @@ export default class Game extends cc.Component {
                         this.res[`${i}`] = true;
                     }
                 }
-                
             }
         }
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
+            // 游戏结束
+            this.gameOver = true;
             // 清除所有路径
-            this.clearPath();
+            // this.clearPath();
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
             // 显示菜单信息
