@@ -569,6 +569,7 @@ export default class Game extends cc.Component {
                 }                    
             }
             self.gtxArr = [];
+            // self.movePath = {};
         }
     }
     // 重新绘制路径信息
@@ -579,7 +580,7 @@ export default class Game extends cc.Component {
             let self = this;
             // 遍历所有的路径
             for(let i = 0; i < levelNumber; i++) {
-                if(self.movePath[i].length >= 2) {
+                if(self.movePath && self.movePath[i] && self.movePath[i].length >= 2) {
                     // 绘制直线
                     let curColor;
                     let dataLen = self.levelData.json[Global.level].length;
@@ -587,21 +588,25 @@ export default class Game extends cc.Component {
                     // 绘制点前点击对应的画线id
                     curColor = new cc.Color(dataItem.color[0],dataItem.color[1],dataItem.color[2],dataItem.color[3]);
                     // if(this.checkPathValid(self.movePath[curId],curId)) {
-                    self.gtxArr[i].strokeColor = curColor;
-                    let movePathLen = self.movePath[i].length;
-                    // 清除路径重要
-                    self.gtxArr[i].clear();
-                    for(let m = 0; m < movePathLen; m++) {
-                        let p = self.aArr[self.movePath[i][m].x][self.movePath[i][m].y];
-                        if(m === 0) {
-                            self.gtxArr[i].moveTo(p.x,p.y);
-                        } else {
-                            self.gtxArr[i].lineTo(p.x,p.y);
+                    if(self.gtxArr[i]) {
+                        self.gtxArr[i].strokeColor = curColor;
+                        let movePathLen = self.movePath[i].length;
+                        // 清除路径重要
+                        self.gtxArr[i].clear();
+                        for(let m = 0; m < movePathLen; m++) {
+                            let p = self.aArr[self.movePath[i][m].x][self.movePath[i][m].y];
+                            if(m === 0) {
+                                self.gtxArr[i].moveTo(p.x,p.y);
+                            } else {
+                                self.gtxArr[i].lineTo(p.x,p.y);
+                            }
                         }
+                        self.gtxArr[i].stroke();
                     }
-                    self.gtxArr[i].stroke();
                 } else {
-                    self.gtxArr[i].clear();
+                    if(self.gtxArr[i]) {
+                        self.gtxArr[i].clear();
+                    }
                 }
             }
             
@@ -639,6 +644,8 @@ export default class Game extends cc.Component {
         console.log("obj is ",this.res);
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
+            // 清除所有路径
+            // this.clearPath();
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
             // 显示菜单信息

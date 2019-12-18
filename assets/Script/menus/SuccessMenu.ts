@@ -17,16 +17,16 @@ export default class SuccessMenu extends cc.Component {
     private clickEvent(e: cc.Event,data: any): void {
         switch(data) {
             case "replay":
-                cc.director.loadScene("Game");
+                    cc.director.loadScene("Game");
                 break;
-            case "nextLevel":
-                Global.level++;
-                cc.director.loadScene("Game");
+                case "nextLevel":
+                    Global.level++;
+                    cc.director.loadScene("Game");
                 break;
             case "close":
                 // 关闭弹窗
                 break;        
-        }
+            }
         LayerManager.getInstance().removeSprite("menu");
         LayerManager.getInstance().showMask(false);
     }
