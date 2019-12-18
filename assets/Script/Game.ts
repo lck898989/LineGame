@@ -553,6 +553,7 @@ export default class Game extends cc.Component {
     update (dt) {
         this.drawPath();
         if(this.gameOver) {
+            // 清除路径
             this.clearPath();
         }
     }
