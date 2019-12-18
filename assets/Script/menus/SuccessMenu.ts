@@ -25,7 +25,7 @@ export default class SuccessMenu extends cc.Component {
                 break;
             case "close":
                 // 关闭弹窗
-                break;        
+                break;
             }
         LayerManager.getInstance().removeSprite("menu");
         LayerManager.getInstance().showMask(false);

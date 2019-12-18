@@ -84,6 +84,7 @@ export default class Game extends cc.Component {
     public onLoad(): void {
         console.log("movePath is ",this.movePath);
         console.log("===>> gtxArr is ",this.gtxArr);
+        console.log(this.gridCon);
     }
     public async start () {
         this.gridArr = [];
@@ -99,7 +100,7 @@ export default class Game extends cc.Component {
         this.gridCon.on("touchmove",this.touchMove,this);
         this.gridCon.on("touchend",this.touchEnd,this);
         this.levelData = await new Promise((resolve,reject) => {
-            cc.loader.loadRes("config/oneLevel.json",cc.JsonAsset,(err: Error,res: any) => {
+            cc.loader.loadRes("config/level.json",cc.JsonAsset,(err: Error,res: any) => {
                 if(err) {
                     return;
                 }
@@ -130,7 +131,7 @@ export default class Game extends cc.Component {
     private addGrphicsToNode(): void {
         if(this.levelData && this.levelData.json && this.levelData.json[Global.level]) {
             for(let i = 0; i < this.levelData.json[Global.level].length; i++) {
-                let  penNode = new cc.Node();
+                let penNode = new cc.Node();
                 penNode.name = "pen" + i.toString();
                 penNode.addComponent(cc.Graphics);
                 this.gridCon.addChild(penNode);
@@ -524,7 +525,7 @@ export default class Game extends cc.Component {
         //     this.successAnimation.off("finished",this.successOver,this);
         // }
 
-        this.clearPath();
+        // this.clearPath();
         // 清除移动path
         this.movePath = {};
     }
@@ -559,11 +560,12 @@ export default class Game extends cc.Component {
             let self = this;
             // 遍历所有的路径
             for(let i = 0; i < levelNumber; i++) {
-                if(self.gtxArr) {
+                if(self.gtxArr && self.gtxArr[i]) {
                     // 清除路径重要
-                    self.gtxArr[i].clear(true);
+                    self.gtxArr[i].clear();
                     // 自己手动释放
                     if(cc.isValid(self.gtxArr[i].node)) {
+                        console.log("清除画笔内容");
                         self.gtxArr[i].node.destroy();
                     }
                 }                    
@@ -645,7 +647,7 @@ export default class Game extends cc.Component {
         if(Object.keys(this.res).length === levelData.length) {
             res = true;
             // 清除所有路径
-            // this.clearPath();
+            this.clearPath();
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
             // 显示菜单信息
