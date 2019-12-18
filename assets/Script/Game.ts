@@ -246,7 +246,7 @@ export default class Game extends cc.Component {
         switch(data) {
             case "back":
                 // 清除所有的画笔
-                this.clearPath();
+                // this.clearPath();
                 cc.director.loadScene("Index");
                 break;
             case "reset":
@@ -524,7 +524,8 @@ export default class Game extends cc.Component {
         //     this.successAnimation.off("finished",this.successOver,this);
         // }
 
-        // this.clearPath();
+        this.clearPath();
+        // 清除移动path
         this.movePath = {};
     }
     // 获得点击的行
@@ -652,6 +653,7 @@ export default class Game extends cc.Component {
             pathItemArr[i] = [];
             pathItemArr[i][0] = pathItem[i].x;
             pathItemArr[i][1] = pathItem[i].y;
+
         }
         console.log(`pathItemArr is `,pathItemArr);
         let rightNumber: number = 0;
@@ -665,23 +667,5 @@ export default class Game extends cc.Component {
             return true;
         }
         return false;
-    }
-    // 检测路径的合法性
-    checkPathValid(pathArr: cc.Vec2[],id: number): boolean {
-        let res = false;
-        let num: number = 0;
-        for(let i = 0; i < pathArr.length; i++) {
-            if(i <= pathArr.length - 2) {
-                let pathItemPre: cc.Vec2 = pathArr[i];
-                let pathItemNext: cc.Vec2 = pathArr[i + 1];
-                if(Math.abs(pathItemNext.x - pathItemPre.x) === 1 || Math.abs(pathItemNext.y - pathItemPre.y) === 1) {
-                    num++;
-                }
-            }
-        }
-        if(num === pathArr.length - 1) {
-            res = true;
-        }
-        return res;
     }
 }
