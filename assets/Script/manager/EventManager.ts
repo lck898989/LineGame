@@ -6,7 +6,7 @@ export default class EventManager {
     public static _instance: EventManager = null;
     private listenerObj = {};
     public static getInstance(): EventManager {
-        if(this._instance) {
+        if(!this._instance) {
             this._instance = new EventManager();
         }
         return this._instance;
