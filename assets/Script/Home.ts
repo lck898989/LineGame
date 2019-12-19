@@ -2,15 +2,6 @@ const {ccclass, property} = cc._decorator;
 import AudioManager from "./manager/AudioManager";
 @ccclass
 export default class Home extends cc.Component {
-
-    // @property(cc.Label)
-    // label: cc.Label = null;
-
-    // @property
-    // text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-    
     // onLoad () {}
     @property(cc.Node)
     musicBtnOn: cc.Node = null;

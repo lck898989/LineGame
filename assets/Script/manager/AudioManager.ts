@@ -88,8 +88,6 @@ export default class AudioManager {
     }
     // 开启音效(1为开启，0为关闭)
     public turnOnMusic(): void {
-        // let clipTemp: cc.AudioClip = this.bgCache[Object.keys(this.bgCache)[0]];
-        // cc.audioEngine.play(clipTemp,true,0.7);
         if(this.currentBgMusic !== -1) {
             cc.audioEngine.resume(this.currentBgMusic);
         }

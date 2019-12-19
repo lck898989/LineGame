@@ -52,7 +52,7 @@ export default class LayerManager extends cc.Component {
         }
         return this._instance;
     }
-    // 添加到
+    // 显示遮罩
     public showMask(isShow: boolean): void {
         if(!this.maskLayer) {
             let managerCom: cc.Component = cc.find("layer").getComponent("LayerManager");
@@ -95,7 +95,7 @@ export default class LayerManager extends cc.Component {
             cc.tween(node).to(0.5,{
                 scale: 1,
                 rotation: 360
-            },{easing: "bounceInOut"}).start().call(() => {
+            },{easing: cc.easeBackInOut}).start().call(() => {
                 console.log("动画播放完毕");
             });
             // 设置层级关系
