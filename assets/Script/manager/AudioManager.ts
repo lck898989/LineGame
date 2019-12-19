@@ -40,7 +40,7 @@ export default class AudioManager {
             }
             console.log("bgCache is ",this.bgCache[url]);
             if(!this.bgCache[url]) {
-                console.log("raw(url) is ",cc.url.raw(url));
+                // console.log("raw(url) is ",cc.url.raw(url));
                 // 动态加载资源
                 let clip = await new Promise((resolve,reject) => {
                     cc.loader.loadRes(url,(err,clip: cc.AudioClip) => {
