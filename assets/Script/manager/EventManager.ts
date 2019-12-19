@@ -12,9 +12,9 @@ export default class EventManager {
         return this._instance;
     }
     // 添加一个监听
-    public addEventListener(type: string,handler: Function,target?: any) {
+    public addEventListener(type: string,handler: Function) {
         if(typeof type === "string" && typeof handler === "function") {
-            handler.bind(target);
+            // handler.bind(target);
             if(typeof this.listenerObj[type] === "undefined") {
                 this.listenerObj[type] = [handler];
             } else {
@@ -23,7 +23,7 @@ export default class EventManager {
         }
     }
     // 删除对应的监听
-    public removeEventListener(type: string,handler: Function,target?: any) {
+    public removeEventListener(type: string,handler: Function) {
         if(this.listenerObj[type] && this.listenerObj[type].length > 0) {
             for(var i = 0,len = this.listenerObj[type].length; i < len; i++) {
                 if(this.listenerObj[type][i] == handler) {
@@ -43,7 +43,7 @@ export default class EventManager {
             let handlers = this.listenerObj[event.type];
             for(let i = 0; i < handlers.length; i++) {
                 if(typeof handlers[i] === "function") {
-                    // handlers[i](event).bind(target);
+                    // handlers[i](event).bind(event.target);
                     handlers[i](event);
                 }
             }

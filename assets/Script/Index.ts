@@ -1,6 +1,7 @@
 // 圣诞树闪光
 const {ccclass, property} = cc._decorator;
 import Global from "./common/Global";
+import EventManager from "./manager/EventManager";
 @ccclass
 export default class Index extends cc.Component {
 
@@ -39,7 +40,14 @@ export default class Index extends cc.Component {
         this.pageArr.push(this.page2);
         this.pageArr.push(this.page3);
         this.addAllLevel();
-
+        EventManager.getInstance().addEventListener("chooseLevel",this.choosedLevelEvent);
+    }
+    private choosedLevelEvent(e: any): void {
+        console.log("关卡选择完毕");
+        console.log("e is ",e);
+        let that = this;
+        EventManager.getInstance().removeEventListener("chooseLevel",this.choosedLevelEvent);
+        console.log("eventManager.getInstance() is ",EventManager.getInstance());
     }
     // 添加所有关卡
     addAllLevel(): void {
@@ -103,6 +111,7 @@ export default class Index extends cc.Component {
             Global.level = this.choosedLevel;
             let start = new Date().getMilliseconds();
             Global.prefabBuffer = [];
+            EventManager.getInstance().dispatchEvent({type: "chooseLevel",target: this,message: "dd"});
             Global.preLoadPrefabs(() => {
                 let end = new Date().getMilliseconds();
                 console.log("加载预制体消耗",end - start,"ms");

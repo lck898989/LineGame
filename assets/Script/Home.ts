@@ -1,5 +1,6 @@
 const {ccclass, property} = cc._decorator;
 import AudioManager from "./manager/AudioManager";
+import EventManager from "./manager/EventManager";
 @ccclass
 export default class Home extends cc.Component {
     // onLoad () {}
@@ -22,8 +23,10 @@ export default class Home extends cc.Component {
         }
     }
     private setBtnState(on: boolean): void {
-        this.musicBtnOn.active = on;
-        this.musicBtnOff.active = !on;
+        if(this.musicBtnOff && this.musicBtnOn) {
+            this.musicBtnOn.active = on;
+            this.musicBtnOff.active = !on;
+        }
     }
     start () {
         console.log("layer is ",cc.find("layer"));
