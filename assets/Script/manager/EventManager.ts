@@ -1,5 +1,5 @@
 // 事件监听类（自定义）
-class EventManager {
+export default class EventManager {
     constructor() {
 
     }
