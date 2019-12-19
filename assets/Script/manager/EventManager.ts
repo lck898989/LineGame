@@ -14,6 +14,7 @@ export default class EventManager {
     // 添加一个监听
     public addEventListener(type: string,handler: Function,target?: any) {
         if(typeof type === "string" && typeof handler === "function") {
+            handler.bind(target);
             if(typeof this.listenerObj[type] === "undefined") {
                 this.listenerObj[type] = [handler];
             } else {

@@ -41,7 +41,9 @@ export default class LayerManager extends cc.Component {
     texLayer: cc.Node = null;
     @property(cc.Node)
     videoLayer: cc.Node = null;
+
     private layerNode: cc.Node = null;
+    
     onLoad () {
         this.layerNode = cc.find("layer");
         cc.find("layer").active = false;       
@@ -132,71 +134,79 @@ export default class LayerManager extends cc.Component {
         }
     }
     /**
+     * ============废弃=============
      * @param  {string} animationName 要播放的动画名称
      * @param  {number} playTime 参数播放次数
      * @param  {any} target 动画播放完毕的回调函数的target
      * @param  {Function} animationOverCallBack 动画播放完毕的回调函数
      * @returns void
+     public showAnimation(animationName: string,playTime: number = 1,target: any,animationOverCallBack?: (e: cc.Event.EventCustom) => void): void {
+         let that = this;
+         if(!this.animationLayer) {
+             let managerCom: cc.Component = cc.find("layer").getComponent("LayerManager");
+             let layerNode: cc.Node = managerCom.node;
+             this.animationLayer = layerNode.getChildByName("animation");
+         }
+         if(this.animationLayer) {
+             this.animationLayer.parent.active = true;
+             this.animationLayer.active = true;
+             this.animationLayer.active = true;
+             this.animationLayer.zIndex = this.offset + Layer.ANIMATION;
+             let self = this;
+             let animationCom: cc.Animation = this.animationLayer.getComponent(cc.Animation);
+             // 缓存中没有找到
+             if(!this.animationCache[animationName]) {
+                 cc.loader.loadRes(`animation/${animationName}`,cc.AnimationClip,(err,clip) => {
+                     if(err) {
+                         return;
+                     }
+                     animationCom.defaultClip = clip;
+                     // 将clip放到缓存中存储
+                     that.animationCache[animationName] = clip;
+                     // 加载完整之后自动播放
+                     animationCom.playOnLoad = true;
+                     that.animationState = animationCom.play();
+                     // // 设置动画播放次数
+                     // this.animationState.repeatCount = playTime;
+                     if(animationOverCallBack) {
+                         // 动画执行完毕执行回调函数
+                         animationCom.on("finished",animationOverCallBack,target);
+                     }
+                 });
+             } else {
+                 animationCom.defaultClip = this.animationCache[animationName];
+                 // 加载完整之后自动播放
+                 animationCom.playOnLoad = true;
+                 this.animationState = animationCom.play();
+                 // 设置动画播放次数
+                 // this.animationState.repeatCount = playTime;
+                 if(animationOverCallBack) {
+                     // 动画执行完毕执行回调函数
+                     animationCom.on("finished",animationOverCallBack,target);
+                 }
+             }
+ 
+         }
+     }
      */
-    public showAnimation(animationName: string,playTime: number = 1,target: any,animationOverCallBack?: (e: cc.Event.EventCustom) => void): void {
-        if(!this.animationLayer) {
-            let managerCom: cc.Component = cc.find("layer").getComponent("LayerManager");
-            let layerNode: cc.Node = managerCom.node;
-            this.animationLayer = layerNode.getChildByName("animation");
-        }
-        if(this.animationLayer) {
-            this.animationLayer.parent.active = true;
-            this.animationLayer.active = true;
-            this.animationLayer.active = true;
-            this.animationLayer.zIndex = this.offset + Layer.ANIMATION;
-            let self = this;
-            let animationCom: cc.Animation = this.animationLayer.getComponent(cc.Animation);
-            // 缓存中没有找到
-            if(!this.animationCache[animationName]) {
-                cc.loader.loadRes(`animation/${animationName}`,cc.AnimationClip,(err,clip) => {
-                    if(err) {
-                        return;
-                    }
-                    animationCom.defaultClip = clip;
-                    // 将clip放到缓存中存储
-                    this.animationCache[animationName] = clip;
-                    // 加载完整之后自动播放
-                    animationCom.playOnLoad = true;
-                    this.animationState = animationCom.play();
-                    // // 设置动画播放次数
-                    // this.animationState.repeatCount = playTime;
-                    if(animationOverCallBack) {
-                        // 动画执行完毕执行回调函数
-                        animationCom.on("finished",animationOverCallBack,target);
-                    }
-                });
-            } else {
-                animationCom.defaultClip = this.animationCache[animationName];
-                // 加载完整之后自动播放
-                animationCom.playOnLoad = true;
-                this.animationState = animationCom.play();
-                // 设置动画播放次数
-                // this.animationState.repeatCount = playTime;
-                if(animationOverCallBack) {
-                    // 动画执行完毕执行回调函数
-                    animationCom.on("finished",animationOverCallBack,target);
-                }
-            }
-
-        }
-    }
-    public deleteAnimation(animationName: string) {
-        if(animationName !== "") {
-            // 停止动画
-            this.animationLayer.getComponent(cc.Animation).stop();
-            // 清空内存
-            this.animationLayer.getComponent(cc.Animation).defaultClip = null;
-            this.animationLayer.active = false;
-        }
-    }
-    public clearAnimationCache(): void {
-        this.animationCache = {};
-    }
+    /**
+     * ==========废弃==========
+     * @param animationName 
+     * 
+     public deleteAnimation(animationName: string) {
+         if(animationName !== "") {
+             // 停止动画
+             this.animationLayer.getComponent(cc.Animation).stop();
+             // 清空内存
+             this.animationLayer.getComponent(cc.Animation).defaultClip = null;
+             this.animationLayer.active = false;
+         }
+     }
+     public clearAnimationCache(): void {
+         this.animationCache = {};
+     }
+     * 
+     */
     start () {
 
     }

@@ -3,6 +3,7 @@ import Grid from "./Grid";
 import Util from "./utils/Util";
 import Global from "./common/Global";
 import LayerManager from "./manager/LayerManager";
+import EventManager from "./manager/EventManager";
 
 interface touchInfo {
     "p"   : cc.Vec2,
@@ -665,10 +666,16 @@ export default class Game extends cc.Component {
             // this.clearPath();
             // 层级管理器显示遮罩
             LayerManager.getInstance().showMask(true);
+            EventManager.getInstance().addEventListener("closeWindow",this.closeWindow,this);
             // 显示菜单信息
             LayerManager.getInstance().showSprite(cc.instantiate(this.menuPrefab),"menu");
         }
         return res;
+    }
+    // 关闭弹窗
+    private closeWindow(event: any): void {
+        console.log("event is ",event);
+        console.log("关闭弹窗");
     }
     private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
         let pathItemArr: any[] = [];
