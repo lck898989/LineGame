@@ -665,6 +665,7 @@ export default class Game extends cc.Component {
             // 清除所有路径
             // this.clearPath();
             // 层级管理器显示遮罩
+            
             LayerManager.getInstance().showMask(true);
             EventManager.getInstance().addEventListener("closeWindow",this.closeWindow,this);
             // 显示菜单信息
@@ -676,6 +677,8 @@ export default class Game extends cc.Component {
     private closeWindow(event: any): void {
         console.log("event is ",event);
         console.log("关闭弹窗");
+        // 移除监听
+        EventManager.getInstance().removeEventListener("closeWindow",this.closeWindow);
     }
     private checkPathArrIsEqual(pathItem: cc.Vec2[],pathArr: number[][]): boolean {
         let pathItemArr: any[] = [];
