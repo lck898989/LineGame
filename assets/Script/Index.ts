@@ -40,13 +40,13 @@ export default class Index extends cc.Component {
         this.pageArr.push(this.page2);
         this.pageArr.push(this.page3);
         this.addAllLevel();
-        EventManager.getInstance().addEventListener("chooseLevel",this.choosedLevelEvent);
+        EventManager.getInstance().addEventListener("chooseLevel",this.choosedLevelEvent,this);
     }
     private choosedLevelEvent(e: any): void {
         console.log("关卡选择完毕");
         console.log("e is ",e);
         let that = this;
-        EventManager.getInstance().removeEventListener("chooseLevel",this.choosedLevelEvent);
+        EventManager.getInstance().removeEventListener("chooseLevel",this.choosedLevelEvent,this);
         console.log("eventManager.getInstance() is ",EventManager.getInstance());
     }
     // 添加所有关卡
