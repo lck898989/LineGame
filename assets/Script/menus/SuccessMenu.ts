@@ -30,7 +30,7 @@ export default class SuccessMenu extends cc.Component {
                 // Game.prototype.gameOver = 
                 cc.director.loadScene("Game");
                 // 分发事件
-                EventManager.getInstance().dispatchEvent({type: "closeWindow",message: "close window",target: this});
+                // EventManager.getInstance().dispatchEvent({type: "closeWindow",message: "close window"});
                 // EventManager.getInstance().removeEventListener("closeWindow",)
                 break;
             }

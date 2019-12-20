@@ -2187,22 +2187,22 @@
         "__id__": 45
       },
       {
-        "__id__": 47
-      },
-      {
         "__id__": 48
       },
       {
-        "__id__": 51
+        "__id__": 49
       },
       {
-        "__id__": 53
+        "__id__": 50
+      },
+      {
+        "__id__": 51
       }
     ],
     "_active": false,
     "_components": [
       {
-        "__id__": 54
+        "__id__": 52
       }
     ],
     "_prefab": null,
@@ -2265,6 +2265,9 @@
     "_components": [
       {
         "__id__": 46
+      },
+      {
+        "__id__": 47
       }
     ],
     "_prefab": null,
@@ -2348,6 +2351,35 @@
     "_id": "53aezWIuFKuLis1jhs+czt"
   },
   {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 45
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": {
+      "__id__": 44
+    },
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 750,
+    "_originalHeight": 1334,
+    "_id": "6bxbrbwu1IhqQ3sOcoSwAS"
+  },
+  {
     "__type__": "cc.Node",
     "_name": "toast",
     "_objFlags": 0,
@@ -2414,14 +2446,7 @@
     },
     "_children": [],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 49
-      },
-      {
-        "__id__": 50
-      }
-    ],
+    "_components": [],
     "_prefab": null,
     "_opacity": 255,
     "_color": {
@@ -2471,57 +2496,6 @@
     "_id": "7a2xg2mhxCG5eiPFVzh9Gq"
   },
   {
-    "__type__": "cc.Animation",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 48
-    },
-    "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "af0fa8e4-ad7f-4193-aa00-097807985dba"
-    },
-    "_clips": [
-      {
-        "__uuid__": "af0fa8e4-ad7f-4193-aa00-097807985dba"
-      }
-    ],
-    "playOnLoad": false,
-    "_id": "639WEpjBNFy5OfMvpKfMB5"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 48
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "79fb0b82-9829-4f52-975e-e884f873b405"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": "8chqoWWsVGlapHpC99WXCK"
-  },
-  {
     "__type__": "cc.Node",
     "_name": "tex",
     "_objFlags": 0,
@@ -2530,11 +2504,7 @@
     },
     "_children": [],
     "_active": true,
-    "_components": [
-      {
-        "__id__": 52
-      }
-    ],
+    "_components": [],
     "_prefab": null,
     "_opacity": 255,
     "_color": {
@@ -2582,36 +2552,6 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "_id": "794spnZD5HjopNLx9w4Ann"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 51
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": null,
-    "_type": 0,
-    "_sizeMode": 2,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": "4727/7j4lEIb27kDWVeWFK"
   },
   {
     "__type__": "cc.Node",
@@ -2683,16 +2623,16 @@
       "__id__": 45
     },
     "toastLayer": {
-      "__id__": 47
-    },
-    "animationLayer": {
       "__id__": 48
     },
+    "animationLayer": {
+      "__id__": 49
+    },
     "texLayer": {
-      "__id__": 51
+      "__id__": 50
     },
     "videoLayer": {
-      "__id__": 53
+      "__id__": 51
     },
     "_id": "e4s3NxxBNBPa1FATqjwQxF"
   }

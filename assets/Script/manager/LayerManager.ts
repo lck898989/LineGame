@@ -52,6 +52,7 @@ export default class LayerManager extends cc.Component {
         if(!this._instance) {
             this._instance = new LayerManager();
         }
+        
         return this._instance;
     }
     // 显示遮罩
@@ -92,12 +93,17 @@ export default class LayerManager extends cc.Component {
             // if(node.parent.)
             console.log("texlyaer's active is ",this.texLayer.active);
             console.log("node is ",node);
+            node.addComponent(cc.Widget);
+            let widget: cc.Widget = node.getComponent(cc.Widget);
+            widget.left = (cc.find("layer").width - node.width) / 2;
+            widget.right = (cc.find("layer").width - node.width) / 2;
+            widget.target = cc.find("layer");
             this.texLayer.addChild(node);
             // to(duration: number, props: any, opts: {progress: Function; easing: Function|string; })
             cc.tween(node).to(0.5,{
                 scale: 1,
-                rotation: 360
-            },{easing: cc.easeBackInOut}).start().call(() => {
+                angle: 360
+            }).start().call(() => {
                 console.log("动画播放完毕");
             });
             // 设置层级关系
