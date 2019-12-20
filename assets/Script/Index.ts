@@ -111,7 +111,9 @@ export default class Index extends cc.Component {
             Global.level = this.choosedLevel;
             let start = new Date().getMilliseconds();
             Global.prefabBuffer = [];
-            EventManager.getInstance().dispatchEvent({type: "chooseLevel",target: this,message: "dd"});
+            let IndexCompoent = cc.find("Canvas").getComponent("Index");
+            console.log("IndexComponent is ",IndexCompoent);
+            EventManager.getInstance().dispatchEvent({type: "chooseLevel",message: "dd"});
             Global.preLoadPrefabs(() => {
                 let end = new Date().getMilliseconds();
                 console.log("加载预制体消耗",end - start,"ms");
