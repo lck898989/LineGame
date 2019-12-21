@@ -1,6 +1,7 @@
 const {ccclass, property} = cc._decorator;
 import AudioManager from "./manager/AudioManager";
 import EventManager from "./manager/EventManager";
+import Global from "./common/Global";
 @ccclass
 export default class Home extends cc.Component {
     // onLoad () {}
@@ -31,11 +32,14 @@ export default class Home extends cc.Component {
     start () {
         console.log("layer is ",cc.find("layer"));
         cc.game.addPersistRootNode(cc.find("layer"));
+        Global.layerNode = cc.find("layer");
         // 获取音频信息
         let state: boolean = AudioManager.getInstance().getMusicState();
         console.log("music state is ",state);
         this.setBtnState(state);
-        AudioManager.getInstance().playBg("audio/bg1",true,0.7);
+        if(!AudioManager.getInstance().isPlaying()) {
+            AudioManager.getInstance().playBg("audio/bg1",true,0.7);
+        }
     }
     // 跳转首页
     goIndex():void {

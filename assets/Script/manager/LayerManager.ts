@@ -1,3 +1,5 @@
+import Global from "../common/Global";
+
 /***
  * 
  * 游戏场景层级管理器
@@ -93,11 +95,11 @@ export default class LayerManager extends cc.Component {
             // if(node.parent.)
             console.log("texlyaer's active is ",this.texLayer.active);
             console.log("node is ",node);
-            node.addComponent(cc.Widget);
-            let widget: cc.Widget = node.getComponent(cc.Widget);
-            widget.left = (cc.find("layer").width - node.width) / 2;
-            widget.right = (cc.find("layer").width - node.width) / 2;
-            widget.target = cc.find("layer");
+            // 
+            if(Global.layerNode) {
+                Global.layerNode.x = 375;
+                Global.layerNode.y = 667;
+            }
             this.texLayer.addChild(node);
             // to(duration: number, props: any, opts: {progress: Function; easing: Function|string; })
             cc.tween(node).to(0.5,{

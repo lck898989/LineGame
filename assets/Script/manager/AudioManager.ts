@@ -68,6 +68,13 @@ export default class AudioManager {
         // 暂停音乐
         cc.audioEngine.pause(id);
     }
+    public isPlaying(): boolean {
+        if(this.currentBgMusic !== -1 && this.musicOn) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     // 播放音效
     public playEffect(url: string) {
         if(!this.musicOn) {

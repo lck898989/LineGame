@@ -5,6 +5,7 @@ export default class Global {
     public static prefabBuffer: cc.Prefab[] = [];
     // 圆点颜色数量
     public static totalColorCout: number = 7;
+    public static layerNode: cc.Node = null;
     // 预加载预制体组件
     public static async preLoadPrefabs(callback: Function) {
         let PromiseArr: Promise<cc.Prefab>[] = [];
