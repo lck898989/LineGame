@@ -86,7 +86,6 @@ export default class Game extends cc.Component {
     public onLoad(): void {
         console.log("movePath is ",this.movePath);
         console.log("===>> gtxArr is ",this.gtxArr);
-        console.log(this.gridCon);
     }
     public async start () {
         this.gridArr = [];
@@ -205,7 +204,6 @@ export default class Game extends cc.Component {
                 this.addBallToGridCon(rightNode,rightObj.row,rightObj.col,id,path.reverse(),colorArr,row,col);
             }
         } else {
-            console.log("这一关的数据还没有敬请期待");
             // if(Global.level >= 2) {
             //     Global.level--;
             // }
@@ -246,7 +244,6 @@ export default class Game extends cc.Component {
         return Math.floor(Math.random() * (maxNum - minNum) + minNum);
     }
     btnEvent(e: cc.Event.EventTouch,data: any): void {
-        console.log("data is ",data);
         switch(data) {
             case "back":
                 // 清除所有的画笔
@@ -497,7 +494,6 @@ export default class Game extends cc.Component {
         }
     }
     touchEnd(e: cc.Event.EventTouch): void {
-        console.log("touchend");
         let res = this.getRowColByTouch(e);
         this.endVec = res.p;
         let targetNode = res.node;
@@ -513,8 +509,6 @@ export default class Game extends cc.Component {
             
             this.isContinue = false;
             this.isReStart = false;
-            // 判断游戏是否过关
-            console.log("path is ",this.movePath);
         }
         // 检测是否过关
         this.checkIsPass();
@@ -553,9 +547,10 @@ export default class Game extends cc.Component {
     }
     update (dt) {
         this.drawPath();
+        console.log("---> children is ",this.gridCon.childrenCount);
         if(this.gameOver) {
             // 清除路径
-            this.clearPath();
+            console.log("gridcon's children is ",this.gridCon.childrenCount);
         }
     }
     // 清除所有的路径信息
@@ -568,7 +563,7 @@ export default class Game extends cc.Component {
             for(let i = 0; i < levelNumber; i++) {
                 if(self.gtxArr && self.gtxArr[i]) {
                     // 清除路径重要
-                    self.gtxArr[i].clear();
+                    self.gtxArr[i].clear(true);
                     // 自己手动释放
                     if(cc.isValid(self.gtxArr[i].node)) {
                         console.log("清除画笔内容");
@@ -665,7 +660,7 @@ export default class Game extends cc.Component {
             // 清除所有路径
             // this.clearPath();
             // 层级管理器显示遮罩
-            
+            this.clearPath();
             LayerManager.getInstance().showMask(true);
             // EventManager.getInstance().addEventListener("closeWindow",this.closeWindow,this);
             // 显示菜单信息
@@ -689,7 +684,6 @@ export default class Game extends cc.Component {
             pathItemArr[i][1] = pathItem[i].y;
 
         }
-        console.log(`pathItemArr is `,pathItemArr);
         let rightNumber: number = 0;
         for(let m = 0,len = pathItemArr.length; m < len; m++) {
             if((pathItemArr[m][0] === pathArr[m][0] && pathItemArr[m][1] === pathArr[m][1]) ||

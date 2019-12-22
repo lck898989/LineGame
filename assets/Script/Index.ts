@@ -33,7 +33,6 @@ export default class Index extends cc.Component {
     }
 
     start () {
-        console.log("index start");
         this.levelArr = [];
         this.pageArr = [];
         this.pageArr.push(this.page1);
@@ -43,11 +42,8 @@ export default class Index extends cc.Component {
         EventManager.getInstance().addEventListener("chooseLevel",this.choosedLevelEvent,this);
     }
     private choosedLevelEvent(e: any): void {
-        console.log("关卡选择完毕");
-        console.log("e is ",e);
         let that = this;
         EventManager.getInstance().removeEventListener("chooseLevel",this.choosedLevelEvent,this);
-        console.log("eventManager.getInstance() is ",EventManager.getInstance());
     }
     // 添加所有关卡
     addAllLevel(): void {
@@ -107,12 +103,10 @@ export default class Index extends cc.Component {
             } else {
                 this.choosedLevel = num1 * 30 + num3 + 1;
             }
-            console.log("choosedLevel is ",this.choosedLevel);
             Global.level = this.choosedLevel;
             let start = new Date().getMilliseconds();
             Global.prefabBuffer = [];
             let IndexCompoent = cc.find("Canvas").getComponent("Index");
-            console.log("IndexComponent is ",IndexCompoent);
             EventManager.getInstance().dispatchEvent({type: "chooseLevel",message: "dd"});
             Global.preLoadPrefabs(() => {
                 let end = new Date().getMilliseconds();
